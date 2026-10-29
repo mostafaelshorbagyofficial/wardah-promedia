@@ -15,6 +15,7 @@ export const PRIORITY_CREATOR: CreatorCandidate = {
   categoryAr: 'صناع محتوى طعام وتجارب مطاعم — أولوية ترشيح أولى',
   categoryEn: 'Food Experience & Restaurant Reviews — Top Priority Candidate',
   tags: ['Priority Placement', 'High Engagement', 'Restaurant Experience', 'Viral Reach'],
+  image: '/assets/influencers/el-zuzzat.jpg',
   isPriority: true,
   notesAr: 'مرشح ذو أولوية للحملة الافتتاحية نظراً للشعبية الكبيرة وأسلوب السرد التفاعلي التلقائي',
   notesEn: 'Top priority creator candidate for opening wave due to strong food storytelling and audience engagement'

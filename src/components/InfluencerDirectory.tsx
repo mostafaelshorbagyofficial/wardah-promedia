@@ -135,12 +135,17 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
               <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
                 
                 <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 text-center sm:text-left rtl:sm:text-right">
-                  {/* Priority Avatar */}
-                  <div className="relative">
-                    <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-[#c5384a] via-[#b02a3a] to-[#7d1d32] flex items-center justify-center text-white text-2xl sm:text-3xl font-black shadow-lg shadow-[#c5384a]/20 flex-shrink-0">
-                      EZ
+                  {/* Priority Avatar with Official Uploaded Image */}
+                  <div className="relative flex-shrink-0">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#c5384a]/35 shadow-lg shadow-[#c5384a]/20 bg-[#f5f0e8] flex items-center justify-center">
+                      <img
+                        src={PRIORITY_CREATOR.image || "/assets/influencers/el-zuzzat.jpg"}
+                        alt={lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
+                        className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
+                        loading="eager"
+                      />
                     </div>
-                    <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#c49348] text-white flex items-center justify-center text-xs shadow-md">
+                    <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#c49348] text-white flex items-center justify-center text-xs shadow-md border-2 border-white" title="Top Priority Candidate">
                       <Star className="w-3.5 h-3.5 fill-white" />
                     </span>
                   </div>

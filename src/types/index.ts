@@ -39,6 +39,7 @@ export interface CreatorCandidate {
   categoryAr: string;
   categoryEn: string;
   tags: string[];
+  image?: string;
   isPriority?: boolean;
   notesAr?: string;
   notesEn?: string;

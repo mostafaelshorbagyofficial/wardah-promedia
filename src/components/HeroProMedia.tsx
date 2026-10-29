@@ -25,13 +25,11 @@ export const HeroProMediaProps: React.FC<HeroProMediaProps> = ({ lang }) => {
 
           {/* Prominent ProMedia Logo Display */}
           <div className="flex justify-center mb-6 sm:mb-8">
-            <div className="p-4 sm:p-6 bg-white/5 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md hover:border-[#e84d58]/40 transition-colors duration-300">
+            <div className="px-5 py-3.5 sm:px-7 sm:py-4 bg-white/5 rounded-2xl border border-white/10 shadow-2xl backdrop-blur-md hover:border-[#e84d58]/40 transition-colors duration-300 inline-flex items-center justify-center">
               <img
                 src="/assets/logo/promedia-logo.png"
                 alt="PRO MEDIA Logo"
-                width="240"
-                height="80"
-                className="h-12 sm:h-16 md:h-20 w-auto object-contain mx-auto drop-shadow-lg"
+                className="w-[150px] sm:w-[190px] md:w-[230px] h-auto object-contain mx-auto drop-shadow-xl"
               />
             </div>
           </div>
