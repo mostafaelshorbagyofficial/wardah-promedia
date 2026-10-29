@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    watch: {
+      ignored: ['**/03_Mega_Influencers/**', '**/FOOD_BEVERAGE_PORTFOLIO/**', '**/02 — ProMedia Promo/**'],
+    },
   },
   resolve: {
     alias: {
