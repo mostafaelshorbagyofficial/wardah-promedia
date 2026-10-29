@@ -1,196 +1,100 @@
-import { PortfolioItem } from '../types';
+export interface ClientBrand {
+  id: string;
+  nameAr: string;
+  nameEn: string;
+  categoryAr: string;
+  categoryEn: string;
+  logo: string;
+  destinationUrl: string;
+  platform: 'instagram' | 'facebook';
+  statusNoteAr?: string;
+  statusNoteEn?: string;
+  highlightsAr: string[];
+  highlightsEn: string[];
+}
 
-export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+export const FB_CLIENTS: ClientBrand[] = [
   {
-    id: 'omar-effendi',
-    nameAr: 'عمر أفندي للأسماك والمأكولات البحرية',
-    nameEn: 'Omar Effendi Seafood Restaurant',
-    handle: 'Omar Effendi / SeaFood',
-    categoryAr: 'مأكولات بحرية ومطاعم عائلية',
-    categoryEn: 'Seafood & Family Dining',
-    locationAr: 'الإسكندرية (المعمورة، سيدي بشر) والقاهرة',
-    locationEn: 'Alexandria & Cairo, Egypt',
-    followers: '180K',
-    posts: '962',
-    bioAr: 'مطعم عمر أفندى للأسماك والمأكولات البحرية - الخط الساخن 17912',
-    bioEn: 'Omar Effendi Seafood Restaurant - Premium fresh seafood cuisine. Hotline 17912',
-    image: '/assets/portfolio/omar-effendi-seafood.jpeg',
-    link: 'tel:17912',
-    linkType: 'facebook',
-    highlightsAr: ['ريلز تتجاوز 124K مشاهدة', 'انتشار واسع بفروع الإسكندرية والقاهرة', 'تسويق عروض ومواسم السمك الطازج'],
-    highlightsEn: ['Reels with 124K+ views', 'Broad presence in Alexandria and Cairo', 'Fresh catch campaigns and seasonal offers']
-  },
-  {
-    id: 'asmak-el-prince',
-    nameAr: 'مطعم أسماك البرنس للمأكولات البحرية',
-    nameEn: 'Asmak El Prince Seafood Restaurant',
-    handle: '@seafoodprinss',
-    categoryAr: 'مطاعم أسماك ومأكولات بحرية',
-    categoryEn: 'Seafood Restaurant',
-    locationAr: 'الإسكندرية، مصر',
-    locationEn: 'Alexandria, Egypt',
-    followers: '334K',
-    posts: '1,000+',
-    bioAr: 'مطعم أسماك البرنس للمأكولات البحرية - 010 15566100',
-    bioEn: 'Asmak El Prince Seafood Restaurant - Alexandria fresh dining. 010 15566100',
-    image: '/assets/portfolio/asmak-el-prince.jpeg',
-    link: 'https://instagram.com/seafoodprinss',
-    linkType: 'instagram',
-    highlightsAr: ['قاعدة جماهيرية ضخمة 334 ألف متابع', 'صناعة محتوى الطواجن البحرية والولائم', 'إدارة الحضور الرقمي بالإسكندرية'],
-    highlightsEn: ['334K strong follower community', 'Content production for seafood feasts', 'Alexandria market digital footprint']
-  },
-  {
-    id: 'il-campo',
-    nameAr: 'إل كامبو — منتجع وتجارب ريفية',
-    nameEn: 'IL CAMPO Eco-lodge & Experiences',
-    handle: '@ilcampoeg',
-    categoryAr: 'منتجعات سياحية وتجارب طبيعية',
-    categoryEn: 'Eco-lodge & Destination Resort',
-    locationAr: 'المنيل، الجيزة والعين السخنة',
-    locationEn: 'El-Manyal, Giza & Ain Sokhna, Egypt',
-    followers: '190K',
-    posts: '952',
-    bioAr: 'Eco-lodge & experiences in Egypt 🌿 IL CAMPO Resort Cairo & Mila Retreat Ain Sokhna',
-    bioEn: 'Eco-lodge & experiences in Egypt 🌿 Nature, privacy & unforgettable moments',
-    image: '/assets/portfolio/il-campo.jpeg',
-    link: 'https://ilcampoeg.com',
-    linkType: 'website',
-    isVerified: true,
-    highlightsAr: ['حساب موثق رسمي بالعلامة الزرقاء', 'تسويق تجارب الخبز الريفي والأنشطة النهرية', 'ربط المحتوى بحجوزات الموقع الإلكتروني'],
-    highlightsEn: ['Verified Instagram badge', 'Authentic rustic experiences and river activities', 'Direct conversion to online booking platform']
-  },
-  {
-    id: '5-roosters',
-    nameAr: 'فايف روستر — فرايد تشيكن',
+    id: 'five-roosters',
+    nameAr: 'فايف روستر — 5 Roosters',
     nameEn: '5 Roosters Fried Chicken',
-    handle: '@5roostersfriedchicken',
-    categoryAr: 'سلاسل الوجبات السريعة والفرايد تشيكن',
+    categoryAr: 'سلاسل الفرايد تشيكن والوجبات السريعة',
     categoryEn: 'Fast Casual Fried Chicken Chain',
-    locationAr: 'الإسكندرية والقاهرة',
-    locationEn: 'Alexandria & Cairo, Egypt',
-    followers: '96.1K',
-    posts: '971',
-    bioAr: 'أجمد فرايد تشيكن في مصر 🍗 - الخط الساخن 15621',
-    bioEn: 'Top crispy fried chicken in Egypt 🍗 - Hotline 15621',
-    image: '/assets/portfolio/5-roosters.jpeg',
-    link: 'https://5roosters.com',
-    linkType: 'website',
-    highlightsAr: ['حملات "عرض الفرصة" وتويستر وسوبريم', 'صناعة محتوى أطباق الجبن المقرمشة وجذب الشباب', 'إطلاق فروع متعددة ونظام دليفري'],
-    highlightsEn: ['Campaign creative for "Arad El Forsa" and Supreme meals', 'Crispy cheese visual appeal aimed at youth', 'Multi-branch retail and delivery ecosystem']
-  },
-  {
-    id: 'blueview-cafe',
-    nameAr: 'بلو فيو كافيه ومطعم النيل',
-    nameEn: 'BLUE View Cafe & Restaurant',
-    handle: '@blueview.cafe',
-    categoryAr: 'كافيهات ومطاعم الواجهة المائية',
-    categoryEn: 'Waterfront Cafe & Dining',
-    locationAr: 'ممشى أهل مصر وكورنيش النيل، بولاق، القاهرة',
-    locationEn: 'Mamsha Ahl Masr & Nile Corniche, Cairo',
-    followers: '97K',
-    posts: '301',
-    bioAr: 'Your favorite drink tastes better by the sea Between Mamsha Ahl Masr & Stanley',
-    bioEn: 'Your favorite drink tastes better by the sea Between Mamsha Ahl Masr & Stanley',
-    image: '/assets/portfolio/blueview-cafe.jpeg',
-    link: 'https://linkfly.to/blueview',
-    linkType: 'website',
-    highlightsAr: ['موقع إستراتيجي على ممشى أهل مصر', 'تسويق جلسات الغروب والإطلالات النيلية', 'استقطاب الزوار الخليجيين والمحليين'],
-    highlightsEn: ['Prime Nile boardwalk landmark', 'Sunset ambience and specialty beverage content', 'GCC visitor and local hospitality focus']
-  },
-  {
-    id: 'oliver-cafe',
-    nameAr: 'أوليفر كافيه ورحلات يخت النيل',
-    nameEn: 'Oliver Cafe & Nile Yacht Experience',
-    handle: '@olivercafe.eg',
-    categoryAr: 'كافيهات راقية وتجارب يخت نيلي',
-    categoryEn: 'Boutique Cafe & Yacht Experience',
-    locationAr: 'ممشى الزمالك بوابة 1، القاهرة (من الكويت إلى القاهرة)',
-    locationEn: 'Zamalek Promenade, Cairo (Kuwait to Cairo)',
-    followers: '39.9K',
-    posts: '134',
-    bioAr: 'Flavors for your daily mood 🤌 From Kuwait 🇰🇼 to Cairo 🇪🇬',
-    bioEn: 'Flavors for your daily mood 🤌 From Kuwait 🇰🇼 to Cairo 🇪🇬',
-    image: '/assets/portfolio/oliver-cafe.jpeg',
-    link: 'https://www.instagram.com/olivercafe.eg',
-    linkType: 'instagram',
-    highlightsAr: ['فيديو ريلز يتجاوز 4.1 مليون مشاهدة حقيقية', 'فكرة إفطار ورحلات على يخت بالزمالك', 'تحويل المشاهدات إلى طوابير حجز واقعية'],
-    highlightsEn: ['Viral reel surpassing 4.1M views', 'Nile breakfast cruise concept in Zamalek', 'Converting digital reach into actual booking lines']
-  },
-  {
-    id: 'folk-restaurant',
-    nameAr: 'مطعم وكافيه فولك — الساحل الشمالي',
-    nameEn: 'Folk Restaurant & Cafe (Marassi)',
-    handle: '@folk_restaurant',
-    categoryAr: 'مطاعم فاخرة ومأكولات عالمية',
-    categoryEn: 'International & Oriental Fine Dining',
-    locationAr: 'الساحل الشمالي، سيدي عبد الرحمن ك182 (أمام بوابة مراسي 3)',
-    locationEn: 'North Coast, K182 (In front of Marassi Gate 3)',
-    followers: '10K',
-    posts: '260',
-    bioAr: 'Folk, your ultimate destination for international cuisines, Oriental, Turkish, Latin and Spanish',
-    bioEn: 'Folk, your ultimate destination for international cuisines, Oriental, Turkish, Latin and Spanish',
-    image: '/assets/portfolio/folk-restaurant.jpeg',
-    link: 'tel:01099200634',
-    linkType: 'facebook',
-    highlightsAr: ['وجهة فاخرة أمام مراسي في موسم الساحل', 'تصوير سينمائي للأطباق والمشروبات الاستوائية', 'استهداف رواد الساحل والمصطافين الخليجيين'],
-    highlightsEn: ['High-end venue opposite Marassi Gate 3', 'Cinematic mixology and international grill capture', 'Targeting premium Sahel travelers & GCC guests']
+    logo: '/assets/clients/five-roosters-logo.jpg',
+    destinationUrl: 'https://www.instagram.com/5roostersfriedchicken?srtk=dTczODVkbWNkM2ll',
+    platform: 'instagram',
+    highlightsAr: [
+      'استراتيجية المحتوى البصري للأطباق المقرمشة',
+      'إدارة حملات إعلانية مستهدفة للشباب والعائلات',
+      'نمو متسارع للمتابعين والمبيعات المباشرة'
+    ],
+    highlightsEn: [
+      'Visual content strategy for signature crispy meals',
+      'High-conversion targeted social campaigns',
+      'Rapid follower and direct delivery order growth'
+    ]
   },
   {
     id: 'mawlay',
-    nameAr: 'مطعم مولاي — الطابع المصري الأصيل',
-    nameEn: 'Mawlay Authentic Egyptian Dining',
-    handle: '@mawlayrestaurant',
-    categoryAr: 'مطاعم راقية ومأكولات شرقية أصيلة',
-    categoryEn: 'Premium Heritage Egyptian Cuisine',
-    locationAr: '1085 كورنيش النيل، قصر النيل، القاهرة',
-    locationEn: '1085 Nile Corniche, Qasr El Nil, Cairo',
-    followers: '33.9K',
-    posts: '289',
-    bioAr: 'أكل مصري بمذاق مولاي.. أخيراً هتلاقي الشرقي اللي قلبك بيدور عليه',
-    bioEn: 'Authentic Egyptian flavors crafted with regal culinary heritage on the Nile',
-    image: '/assets/portfolio/mawlay-restaurant.jpeg',
-    link: 'https://linktr.ee/mawlayrestaurant',
-    linkType: 'website',
-    isVerified: true,
-    highlightsAr: ['حساب موثق رسمي بالعلامة الزرقاء على إنستغرام', 'تسويق الموزة الضاني والمشاوي الشرقية الراقية', 'تغطيات مميزة لبلوجرز ومشاهير الطعام'],
-    highlightsEn: ['Verified Instagram badge', 'Marketing heritage lamb shank and eastern grills', 'Curated food creator tastings and PR soft opening']
+    nameAr: 'مطعم وكافيه مولاي — Mawlay',
+    nameEn: 'Mawlay Lounge & Dining',
+    categoryAr: 'مطاعم ولاونج ضيافة راقية',
+    categoryEn: 'Fine Dining & Hospitality Lounge',
+    logo: '/assets/clients/mawlay-logo.jpg',
+    destinationUrl: 'https://www.facebook.com/share/1CoRa9zqY8/',
+    platform: 'facebook',
+    highlightsAr: [
+      'صناعة هوية بصرية متميزة تعكس الفخامة',
+      'تغطيات سينمائية للأجواء والجلسات المسائية',
+      'استقطاب العائلات والزوار من مختلف المحافظات'
+    ],
+    highlightsEn: [
+      'Refined visual identity reflecting hospitality elegance',
+      'Cinematic evening atmosphere & dining showcases',
+      'Engaging family dining and destination traffic'
+    ]
   },
   {
-    id: 'costa-blanca',
-    nameAr: 'كوستا بلانكا — مأكولات متوسطية',
-    nameEn: 'Costa Blanca Mediterranean Dining',
-    handle: '@costablanca.eg',
-    categoryAr: 'مطاعم متوسطية وأجواء راقية',
-    categoryEn: 'Mediterranean Dining & Lounge',
-    locationAr: 'الشيخ زايد، الجيزة، القاهرة',
-    locationEn: 'Sheikh Zayed, Giza Governorate, Cairo',
-    followers: '7,790',
-    posts: '148',
-    bioAr: 'Mediterranean cuisine delights with every bite. Open daily: 1 PM - 1 AM',
-    bioEn: 'Mediterranean cuisine delights with every bite. Open daily: 1 PM - 1 AM',
-    image: '/assets/portfolio/costa-blanca.jpeg',
-    link: 'https://linktr.ee/costablanca.eg',
-    linkType: 'website',
-    highlightsAr: ['أجواء السهرات المتوسطية والعشاء الراقي بالشيخ زايد', 'إبراز تفاصيل الطهاة والتحضير الفندقي', 'استقطاب العائلات ونخبة زايد وأكتوبر'],
-    highlightsEn: ['Atmospheric Mediterranean evening dining in Zayed', 'Spotlight on chef craft and plating aesthetics', 'Attracting local elite and visiting diners']
+    id: 'omar-effendi',
+    nameAr: 'عمر أفندي للمأكولات البحرية',
+    nameEn: 'Omar Effendi Seafood Restaurant',
+    categoryAr: 'مأكولات بحرية طازجة وأسماك عائلية',
+    categoryEn: 'Fresh Seafood & Family Dining',
+    logo: '/assets/clients/omar-effendi-logo.jpg',
+    destinationUrl: 'https://www.facebook.com/share/19YfRawSWe/',
+    platform: 'facebook',
+    highlightsAr: [
+      'فيديوهات ريلز تجاوزت مئات آلاف المشاهدات',
+      'تسويق مواسم الأسماك الطازجة وعروض الوجبات',
+      'حضور قوي بفروع الإسكندرية والقاهرة'
+    ],
+    highlightsEn: [
+      'Viral reels generating hundreds of thousands of views',
+      'Seasonal catch marketing and signature platters',
+      'Robust brand presence across Alexandria & Cairo'
+    ]
   },
   {
-    id: 'puka',
-    nameAr: 'بوكا — إطلالة جليم باي الساحلية',
-    nameEn: 'PUKA Restaurant & Coastal Lounge',
-    handle: '@puka_restaurant',
-    categoryAr: 'مطاعم ساحلية ومأكولات متوسطية',
-    categoryEn: 'Elevated Mediterranean & Coastal Calm',
-    locationAr: 'جليم باي، الإسكندرية',
-    locationEn: 'Gleem Bay, Alexandria, Egypt',
-    followers: '2,640',
-    posts: '56',
-    bioAr: 'PUKA | Elevated Mediterranean dining & coastal calm. Your morning escape, your evening social',
-    bioEn: 'PUKA | Elevated Mediterranean dining & coastal calm. Your morning escape, your evening social',
-    image: '/assets/portfolio/puka-restaurant.jpeg',
-    link: 'https://www.instagram.com/puka_restaurant',
-    linkType: 'instagram',
-    highlightsAr: ['موقع بانورامي ساحلي على مياه البحر الأبيض المتوسط', 'تسويق قهوة الصباح وتجمعات المساء الاجتماعية', 'محتوى حوارات ومباريات وفعاليات خاصة'],
-    highlightsEn: ['Panoramic coastal setting on the Mediterranean', 'Morning specialty coffee and evening social branding', 'Curated match screenings and coastal retreat vibe']
+    id: 'el-prince',
+    nameAr: 'أسماك البرنس — El Prince',
+    nameEn: 'Asmak El Prince Seafood',
+    categoryAr: 'مطاعم أسماك ومأكولات بحرية بالإسكندرية',
+    categoryEn: 'Authentic Alexandria Seafood Dining',
+    logo: '/assets/clients/el-prince-logo.jpg',
+    destinationUrl: 'https://www.facebook.com/share/185UXAaw19/',
+    platform: 'facebook',
+    highlightsAr: [
+      'تسويق الطواجن والولائم البحرية التراثية',
+      'صناعة محتوى رقمي تفاعلي عزز من شهرة البراند',
+      'إدارة المجتمع الرقمي والتواصل المباشر مع الزبائن'
+    ],
+    highlightsEn: [
+      'Heritage seafood tajines and feast promotions',
+      'High-impact social engagement strengthening reputation',
+      'Community management and direct customer touchpoints'
+    ]
   }
 ];
+
+// Retain legacy export for backward compatibility if imported elsewhere
+export const PORTFOLIO_ITEMS = FB_CLIENTS;

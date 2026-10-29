@@ -1,14 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Language, CreatorCandidate, CreatorPlatform } from '../types';
 import { CONTENT } from '../data/content';
 import {
-  PRIORITY_CREATOR,
-  MEGA_INFLUENCERS_TOP4,
-  MINI_INFLUENCERS_TOP4,
+  FEATURED_FOOD_INFLUENCERS,
+  MINI_INFLUENCERS_TOP3,
   UGC_CREATORS
 } from '../data/influencers';
 import {
-  Sparkles,
   ExternalLink,
   Users,
   Star,
@@ -17,8 +15,10 @@ import {
   Camera,
   HeartHandshake,
   Info,
-  Layers,
-  ArrowUpRight
+  ArrowUpRight,
+  Maximize2,
+  X,
+  CheckCircle2
 } from 'lucide-react';
 
 interface InfluencerDirectoryProps {
@@ -28,7 +28,7 @@ interface InfluencerDirectoryProps {
 // Crisp inline SVGs for social platforms
 const InstagramIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689-.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
   </svg>
 );
 
@@ -52,9 +52,27 @@ const YouTubeIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
 
 export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }) => {
   const t = CONTENT[lang].influencers;
-  const [activeTab, setActiveTab] = useState<'all' | 'mega' | 'mini' | 'ugc'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'featured' | 'mini' | 'ugc'>('all');
   const [ugcSearchQuery, setUgcSearchQuery] = useState('');
   const [ugcPlatformFilter, setUgcPlatformFilter] = useState<'all' | CreatorPlatform>('all');
+
+  // Accessible Lightbox State
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; title: string } | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxImage(null);
+    };
+    if (lightboxImage) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [lightboxImage]);
 
   const getPlatformIcon = (platform: CreatorPlatform, size = "w-4 h-4") => {
     switch (platform) {
@@ -77,7 +95,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
     return name.slice(0, 2).toUpperCase();
   };
 
-  // Filtered UGC creators list
+  // Filtered UGC creators list (up to 10 creators)
   const filteredUgcCreators = useMemo(() => {
     return UGC_CREATORS.filter((creator) => {
       if (ugcPlatformFilter !== 'all' && creator.platform !== ugcPlatformFilter) return false;
@@ -115,7 +133,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             {t.subtitle}
           </p>
 
-          <div className="inline-flex items-start gap-2.5 text-xs text-[#713f12] bg-[#fefce8] p-4 rounded-xl border border-[#fef08a] max-w-2xl mx-auto text-start rtl:text-right shadow-sm">
+          <div className="inline-flex items-start gap-2.5 text-xs text-[#713f12] bg-[#fefce8] p-4 rounded-xl border border-[#fef08a] max-w-2xl mx-auto text-start rtl:text-right shadow-xs">
             <Info className="w-4 h-4 text-[#ca8a04] flex-shrink-0 mt-0.5" />
             <p className="leading-relaxed font-medium">{t.disclaimer}</p>
           </div>
@@ -134,15 +152,15 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             {t.tabs.all}
           </button>
           <button
-            onClick={() => setActiveTab('mega')}
+            onClick={() => setActiveTab('featured')}
             className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-2 ${
-              activeTab === 'mega'
+              activeTab === 'featured'
                 ? 'bg-[#c5384a] text-white shadow-md shadow-[#c5384a]/20'
                 : 'bg-white border border-[#e8e0d5] text-[#c5384a] hover:bg-[#fdf2f4]'
             }`}
           >
             <TrendingUp className="w-3.5 h-3.5" />
-            <span>{t.tabs.mega}</span>
+            <span>{lang === 'ar' ? 'أبرز مؤثري الطعام (4)' : 'Featured Food Influencers (4)'}</span>
           </button>
           <button
             onClick={() => setActiveTab('mini')}
@@ -153,7 +171,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             }`}
           >
             <HeartHandshake className="w-3.5 h-3.5" />
-            <span>{t.tabs.mini}</span>
+            <span>{lang === 'ar' ? 'مؤثرو الطعام المختارون (3)' : 'Mini Influencers (3)'}</span>
           </button>
           <button
             onClick={() => setActiveTab('ugc')}
@@ -164,158 +182,101 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             }`}
           >
             <Camera className="w-3.5 h-3.5" />
-            <span>{t.tabs.ugc} ({UGC_CREATORS.length})</span>
+            <span>{lang === 'ar' ? `صُنّاع المحتوى (${UGC_CREATORS.length})` : `UGC Creators (${UGC_CREATORS.length})`}</span>
           </button>
         </div>
 
         {/* ============================================================== */}
-        {/* 0. PRIORITY CANDIDATE — EL ZUZZAT (TOP FEATURED CARD)           */}
+        {/* 1. FEATURED FOOD INFLUENCERS — EXACTLY FOUR (IN SPECIFIED ORDER) */}
         {/* ============================================================== */}
-        {(activeTab === 'all' || activeTab === 'mega') && (
-          <div className="mb-16 sm:mb-20">
-            <div className="relative p-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#c5384a] via-[#c49348] to-[#326084] shadow-xl">
-              <div className="bg-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                  
-                  <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 text-center sm:text-left rtl:sm:text-right">
-                    {/* Priority Photo with Verified Local Image */}
-                    <div className="relative flex-shrink-0">
-                      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#c5384a]/35 shadow-lg shadow-[#c5384a]/20 bg-[#f5f0e8] flex items-center justify-center">
-                        <img
-                          src={PRIORITY_CREATOR.image || "/assets/influencers/el-zuzzat.jpg"}
-                          alt={lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
-                          className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
-                          loading="eager"
-                        />
-                      </div>
-                      <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#c49348] text-white flex items-center justify-center text-xs shadow-md border-2 border-white" title="Top Priority Candidate">
-                        <Star className="w-3.5 h-3.5 fill-white" />
-                      </span>
-                    </div>
-
-                    <div>
-                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#c5384a]/10 text-[#c5384a] border border-[#c5384a]/20 mb-2">
-                        <Star className="w-3.5 h-3.5 fill-[#c5384a]" />
-                        <span>{t.priorityBadge}</span>
-                      </div>
-
-                      <h3 className="text-xl sm:text-3xl font-black text-[#1a202c]">
-                        {lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
-                      </h3>
-                      
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-1">
-                        <span className="text-xs sm:text-sm text-[#64748b] font-mono font-medium">
-                          {PRIORITY_CREATOR.handle}
-                        </span>
-                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#c49348]/15 text-[#92400e] border border-[#c49348]/30">
-                          {PRIORITY_CREATOR.followers}
-                        </span>
-                      </div>
-
-                      <p className="text-xs sm:text-sm text-[#475569] mt-2.5 max-w-xl leading-relaxed">
-                        {lang === 'ar' ? PRIORITY_CREATOR.notesAr : PRIORITY_CREATOR.notesEn}
-                      </p>
-
-                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-3.5">
-                        {PRIORITY_CREATOR.tags.map((tag, i) => (
-                          <span key={i} className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#f5f0e8] text-[#334155] border border-[#e8e0d5]">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Priority Functional Direct Links — 44px Touch Targets */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                    <a
-                      href={PRIORITY_CREATOR.primaryLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#c5384a] to-[#d95a6c] hover:from-[#b02a3a] hover:to-[#c5384a] shadow-md shadow-[#c5384a]/25 transition-all active:scale-95"
-                    >
-                      <InstagramIcon className="w-4 h-4 text-white" />
-                      <span>Instagram Profile</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-
-                    {PRIORITY_CREATOR.secondaryLink && (
-                      <a
-                        href={PRIORITY_CREATOR.secondaryLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#1877F2] hover:bg-[#166fe5] shadow-md shadow-blue-600/20 transition-all active:scale-95"
-                      >
-                        <FacebookIcon className="w-4 h-4 text-white" />
-                        <span>Facebook Profile</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================== */}
-        {/* 1. MEGA INFLUENCERS — EXACTLY FOUR (PREMIUM EDITORIAL CARDS)     */}
-        {/* ============================================================== */}
-        {(activeTab === 'all' || activeTab === 'mega') && (
+        {(activeTab === 'all' || activeTab === 'featured') && (
           <div className="mb-20 sm:mb-24">
             {/* Section Header */}
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
               <div>
                 <span className="text-xs font-black text-[#c5384a] tracking-widest uppercase block mb-1">
-                  01 • TIER ONE SELECTION
+                  01 • {lang === 'ar' ? 'النخبة الأبرز للطعام' : 'FEATURED FOOD INFLUENCERS'}
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
-                  {t.sections.megaTitle}
+                  {lang === 'ar' ? 'أبرز مؤثري الطعام' : 'Featured Food Influencers'}
                 </h3>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
-                  {t.sections.megaSubtitle}
+                  {lang === 'ar'
+                    ? 'أربعة صناع محتوى بارزون بالترتيب المحدد (الزوزات، عمرو الهادي، الشيف محمد صلاح، الإكسلانس) مع صورهم الأصلية وإحصاءاتهم المعتمدة.'
+                    : 'The four designated food creators in exact order (El Zuzzat, Amr El Hady, Chef Mohamed Salah, El Exlance) with verified local portraits and audience stats.'}
                 </p>
               </div>
               <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#c5384a]/10 text-[#c5384a] border border-[#c5384a]/20">
-                4 Key Candidates
+                {lang === 'ar' ? '4 مؤثري طعام معتمدين' : '4 Designated Creators'}
               </span>
             </div>
 
             {/* 4 Premium Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {MEGA_INFLUENCERS_TOP4.map((creator, index) => {
+              {FEATURED_FOOD_INFLUENCERS.map((creator, index) => {
                 const orderNum = `0${index + 1}`;
+                const isElZuzzat = creator.id === 'el-zuzzat';
+                const creatorName = lang === 'ar' ? creator.nameAr : creator.nameEn;
+
                 return (
                   <div
                     key={creator.id}
-                    className="p-6 rounded-3xl bg-white border border-[#e8e0d5] hover:border-[#c5384a]/50 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between group shadow-sm relative overflow-hidden"
+                    className={`p-6 rounded-3xl bg-white border transition-all duration-300 flex flex-col justify-between group shadow-sm relative overflow-hidden ${
+                      isElZuzzat
+                        ? 'border-[#c5384a]/50 ring-2 ring-[#c5384a]/20 shadow-md hover:shadow-xl'
+                        : 'border-[#e8e0d5] hover:border-[#c5384a]/50 hover:shadow-wardah-card'
+                    }`}
                   >
-                    {/* Top Order Badge & Platform Pill */}
                     <div>
+                      {/* Top Order Badge & Category Pill */}
                       <div className="flex items-center justify-between mb-4">
-                        <span className="w-8 h-8 rounded-xl bg-[#c5384a]/10 text-[#c5384a] font-black text-xs flex items-center justify-center font-mono">
-                          {orderNum}
-                        </span>
-                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#faf8f5] text-[#334155] border border-[#e8e0d5]">
-                          {creator.roleAr?.split('•')[0] || 'Mega Influencer'}
+                        <div className="flex items-center gap-1.5">
+                          <span className={`w-8 h-8 rounded-xl font-black text-xs flex items-center justify-center font-mono ${
+                            isElZuzzat ? 'bg-[#c5384a] text-white shadow-sm' : 'bg-[#c5384a]/10 text-[#c5384a]'
+                          }`}>
+                            {orderNum}
+                          </span>
+                          {isElZuzzat && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#c49348]/15 text-[#92400e] text-[10px] font-bold border border-[#c49348]/30">
+                              <Star className="w-3 h-3 fill-[#c49348] text-[#c49348]" />
+                              <span>{lang === 'ar' ? 'أولوية أولى' : 'Top Priority'}</span>
+                            </span>
+                          )}
+                        </div>
+
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#faf8f5] text-[#334155] border border-[#e8e0d5] truncate max-w-[150px]">
+                          {lang === 'ar' ? creator.roleAr?.split('•')[0] || 'مؤثر طعام' : creator.roleEn?.split('•')[0] || 'Food Influencer'}
                         </span>
                       </div>
 
-                      {/* Photo Container */}
-                      <div className="relative mb-5 rounded-2xl overflow-hidden aspect-[4/4] bg-[#f5f0e8] border border-[#e8e0d5] shadow-xs group-hover:border-[#c5384a]/30 transition-colors">
+                      {/* Photo Container with Accessible Lightbox Trigger */}
+                      <div className="relative mb-5 rounded-2xl overflow-hidden aspect-[4/4] bg-[#f5f0e8] border border-[#e8e0d5] shadow-xs group-hover:border-[#c5384a]/40 transition-colors">
                         <img
                           src={creator.image}
-                          alt={lang === 'ar' ? creator.nameAr : creator.nameEn}
+                          alt={creatorName}
                           className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                           loading="lazy"
                         />
+
+                        {/* Click-to-Enlarge Lightbox Trigger Overlay Button */}
+                        <button
+                          type="button"
+                          onClick={() => setLightboxImage({ src: creator.image || '', title: creatorName })}
+                          className="absolute inset-0 w-full h-full bg-black/0 group-hover:bg-black/25 flex items-center justify-center transition-all cursor-zoom-in"
+                          title={lang === 'ar' ? 'انقر لتكبير صورة البروفايل بدقة كاملة' : 'Click to enlarge portrait in full view'}
+                          aria-label={`Enlarge portrait of ${creatorName}`}
+                        >
+                          <div className="opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0 px-3 py-1.5 rounded-xl bg-white/95 text-[#1a202c] text-xs font-bold shadow-lg flex items-center gap-1.5 border border-white">
+                            <Maximize2 className="w-3.5 h-3.5 text-[#c5384a]" />
+                            <span>{lang === 'ar' ? 'تكبير الصورة' : 'Enlarge Photo'}</span>
+                          </div>
+                        </button>
                       </div>
 
                       {/* Creator Details */}
                       <div className="mb-4">
                         <h4 className="text-base sm:text-lg font-black text-[#1a202c] group-hover:text-[#c5384a] transition-colors leading-snug">
-                          {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                          {creatorName}
                         </h4>
                         <p className="text-xs text-[#64748b] font-mono mt-0.5">
                           {creator.handle}
@@ -341,7 +302,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                       {/* Platform-by-Platform Breakdown (Interactive clickable chips) */}
                       <div className="mb-4">
                         <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider block mb-2">
-                          {lang === 'ar' ? 'تفصيل المنصات الرسمية:' : 'Platform Breakdown:'}
+                          {lang === 'ar' ? 'تفصيل المنصات الرسمية:' : 'Official Platforms:'}
                         </span>
                         <div className="grid grid-cols-2 gap-1.5">
                           {creator.platforms?.map((p, idx) => (
@@ -351,7 +312,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                               target="_blank"
                               rel="noopener noreferrer"
                               title={`${p.platform}: ${p.count}`}
-                              className="px-2 py-1.5 rounded-lg bg-[#faf8f5] hover:bg-[#f5f0e8] border border-[#e8e0d5] flex items-center justify-between text-[11px] group/chip transition-colors"
+                              className="px-2 py-1.5 rounded-lg bg-[#faf8f5] hover:bg-[#f5f0e8] border border-[#e8e0d5] flex items-center justify-between text-[11px] group/chip transition-colors min-h-[36px]"
                             >
                               <div className="flex items-center gap-1.5 overflow-hidden">
                                 {getPlatformIcon(p.platform, "w-3 h-3 flex-shrink-0")}
@@ -368,24 +329,38 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                       </div>
                     </div>
 
-                    {/* Primary Direct Link Action */}
-                    <div className="pt-3 border-t border-[#f0ebe3]">
+                    {/* Social Profile Links (Kept Separate Beneath Image and Statistics) */}
+                    <div className="pt-3 border-t border-[#f0ebe3] flex flex-col gap-2">
                       <a
                         href={creator.primaryLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full min-h-[44px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1a202c] hover:bg-[#c5384a] transition-all duration-200 active:scale-95 shadow-sm"
+                        className="w-full min-h-[44px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1a202c] hover:bg-[#c5384a] transition-all duration-200 active:scale-95 shadow-xs"
                       >
-                        <span>{t.card.viewProfile}</span>
+                        {getPlatformIcon(creator.platform, "w-3.5 h-3.5 text-white")}
+                        <span>{lang === 'ar' ? `فتح حساب ${creator.platform}` : `Open ${creator.platform}`}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </a>
+
+                      {creator.secondaryLink && (
+                        <a
+                          href={creator.secondaryLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full min-h-[38px] inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#1877F2] bg-[#1877F2]/10 hover:bg-[#1877F2]/20 transition-all active:scale-95"
+                        >
+                          <FacebookIcon className="w-3.5 h-3.5 text-[#1877F2]" />
+                          <span>{lang === 'ar' ? 'الملف الإضافي (Facebook)' : 'Secondary Profile (Facebook)'}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 );
               })}
             </div>
 
-            {/* Combined Audience Discreet Note */}
+            {/* Combined Audience Disclaimer Note */}
             <div className="mt-6 text-center">
               <p className="text-[11px] text-[#64748b] bg-white px-4 py-2.5 rounded-xl border border-[#e8e0d5] inline-block shadow-xs">
                 {t.combinedAudienceNote}
@@ -395,7 +370,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
         )}
 
         {/* ============================================================== */}
-        {/* 2. MINI INFLUENCERS — EXACTLY FOUR (COMPACT FOCUSED CARDS)       */}
+        {/* 2. MINI INFLUENCERS — EXACTLY THREE (IN SPECIFIED ORDER)         */}
         {/* ============================================================== */}
         {(activeTab === 'all' || activeTab === 'mini') && (
           <div className="mb-20 sm:mb-24">
@@ -403,91 +378,126 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
               <div>
                 <span className="text-xs font-black text-[#326084] tracking-widest uppercase block mb-1">
-                  02 • HIGH-AFFINITY SELECTION
+                  02 • {lang === 'ar' ? 'مؤثرو الطعام المختارون' : 'MINI INFLUENCERS'}
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
-                  {t.sections.miniTitle}
+                  {lang === 'ar' ? 'مؤثرو الطعام المختارون' : 'Mini Influencers'}
                 </h3>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
-                  {t.sections.miniSubtitle}
+                  {lang === 'ar'
+                    ? 'ثلاثة صناع محتوى مختارون بعناية (نسمة خضر، شيماء ومسعود، محمود زيزو) بنسب وصول وتفاعل نوعي متميز في مجتمع الطعام.'
+                    : 'Exactly three selected creators (Nesma Khedr, Shaimaa & Masoud, Mahmoud Zizo) with verified high engagement in dining communities.'}
                 </p>
               </div>
               <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#326084]/10 text-[#326084] border border-[#326084]/20">
-                4 Focused Creators
+                {lang === 'ar' ? '3 صناع محتوى مختارون' : '3 Selected Creators'}
               </span>
             </div>
 
-            {/* 4 Compact Editorial Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {MINI_INFLUENCERS_TOP4.map((creator, index) => {
+            {/* 3 Compact Editorial Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {MINI_INFLUENCERS_TOP3.map((creator, index) => {
                 const orderNum = `0${index + 1}`;
-                const initials = getInitials(creator.nameEn);
+                const creatorName = lang === 'ar' ? creator.nameAr : creator.nameEn;
+
                 return (
                   <div
                     key={creator.id}
-                    className="p-5 rounded-2xl bg-white border border-[#e8e0d5] hover:border-[#326084]/50 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between group shadow-sm"
+                    className="p-6 rounded-3xl bg-white border border-[#e8e0d5] hover:border-[#326084]/50 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between group shadow-sm"
                   >
                     <div>
                       {/* Top Bar */}
                       <div className="flex items-center justify-between mb-4">
-                        <span className="w-7 h-7 rounded-lg bg-[#326084]/10 text-[#326084] font-black text-xs flex items-center justify-center font-mono">
+                        <span className="w-8 h-8 rounded-xl bg-[#326084]/10 text-[#326084] font-black text-xs flex items-center justify-center font-mono">
                           {orderNum}
                         </span>
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#eef5fa] text-[#326084] border border-[#dce9f2]">
-                          {getPlatformIcon(creator.platform, "w-3 h-3")}
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#eef5fa] text-[#326084] border border-[#dce9f2]">
+                          {getPlatformIcon(creator.platform, "w-3.5 h-3.5")}
                           <span>{creator.followers}</span>
                         </span>
                       </div>
 
-                      {/* Photo or Monogram */}
-                      <div className="mb-4">
-                        {creator.image ? (
-                          <div className="w-16 h-16 rounded-2xl overflow-hidden border border-[#e8e0d5] shadow-xs mb-3">
-                            <img
-                              src={creator.image}
-                              alt={lang === 'ar' ? creator.nameAr : creator.nameEn}
-                              className="w-full h-full object-cover object-top"
-                              loading="lazy"
-                            />
-                          </div>
-                        ) : (
-                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#326084] to-[#1b2a3a] text-white font-extrabold text-base flex items-center justify-center shadow-xs mb-3">
-                            {initials}
-                          </div>
-                        )}
+                      {/* Photo with Lightbox Trigger */}
+                      <div className="relative mb-5 rounded-2xl overflow-hidden aspect-[4/3] bg-[#f5f0e8] border border-[#e8e0d5] shadow-xs group-hover:border-[#326084]/40 transition-colors">
+                        <img
+                          src={creator.image}
+                          alt={creatorName}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
 
-                        <h4 className="text-base font-bold text-[#1a202c] group-hover:text-[#326084] transition-colors leading-snug">
-                          {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                        {/* Lightbox Trigger Overlay */}
+                        <button
+                          type="button"
+                          onClick={() => setLightboxImage({ src: creator.image || '', title: creatorName })}
+                          className="absolute inset-0 w-full h-full bg-black/0 group-hover:bg-black/25 flex items-center justify-center transition-all cursor-zoom-in"
+                          title={lang === 'ar' ? 'تكبير الصورة' : 'Click to enlarge portrait'}
+                          aria-label={`Enlarge portrait of ${creatorName}`}
+                        >
+                          <div className="opacity-0 group-hover:opacity-100 transition-all px-3 py-1.5 rounded-xl bg-white/95 text-[#1a202c] text-xs font-bold shadow-md flex items-center gap-1.5">
+                            <Maximize2 className="w-3.5 h-3.5 text-[#326084]" />
+                            <span>{lang === 'ar' ? 'معاينة' : 'Enlarge'}</span>
+                          </div>
+                        </button>
+                      </div>
+
+                      <div className="mb-3">
+                        <h4 className="text-base sm:text-lg font-black text-[#1a202c] group-hover:text-[#326084] transition-colors leading-snug">
+                          {creatorName}
                         </h4>
                         <p className="text-xs text-[#64748b] font-mono mt-0.5">
                           {creator.handle}
                         </p>
                       </div>
 
-                      <p className="text-xs text-[#475569] mb-4 line-clamp-3 leading-relaxed">
+                      {/* Audience Note */}
+                      <div className="p-3 rounded-xl bg-[#faf8f5] border border-[#e8e0d5] mb-4">
+                        <span className="text-[11px] font-bold text-[#326084] block mb-0.5">
+                          {lang === 'ar' ? 'الجمهور المسجل:' : 'Reference Audience:'}
+                        </span>
+                        <p className="text-xs font-semibold text-[#1a202c]">
+                          {lang === 'ar' ? creator.combinedAudienceNoteAr : creator.combinedAudienceNoteEn}
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-[#475569] mb-4 line-clamp-2 leading-relaxed">
                         {lang === 'ar' ? creator.categoryAr : creator.categoryEn}
                       </p>
 
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {creator.tags.slice(0, 3).map((tag, i) => (
-                          <span key={i} className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#faf8f5] text-[#334155] border border-[#e8e0d5]">
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {creator.tags.map((tag, i) => (
+                          <span key={i} className="text-[10px] font-semibold px-2.5 py-0.5 rounded-md bg-[#faf8f5] text-[#334155] border border-[#e8e0d5]">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </div>
 
-                    {/* Action Link */}
-                    <div className="pt-3 border-t border-[#f0ebe3]">
+                    {/* Action Links — Kept Separate Beneath Image and Stats */}
+                    <div className="pt-3 border-t border-[#f0ebe3] flex flex-col gap-2">
                       <a
                         href={creator.primaryLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#1a202c] bg-[#f5f0e8] hover:bg-[#326084] hover:text-white transition-all active:scale-95"
+                        className="w-full min-h-[44px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#326084] hover:bg-[#23435c] transition-all active:scale-95 shadow-xs"
                       >
+                        {getPlatformIcon(creator.platform, "w-3.5 h-3.5 text-white")}
                         <span>{t.card.viewProfile}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </a>
+
+                      {creator.secondaryLink && (
+                        <a
+                          href={creator.secondaryLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full min-h-[38px] inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-[#1a202c] bg-[#faf8f5] hover:bg-[#e8e0d5] border border-[#e8e0d5] transition-all active:scale-95"
+                        >
+                          <TikTokIcon className="w-3.5 h-3.5" />
+                          <span>{lang === 'ar' ? 'حساب TikTok' : 'TikTok Profile'}</span>
+                          <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 );
@@ -497,7 +507,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
         )}
 
         {/* ============================================================== */}
-        {/* 3. UGC CREATORS — LINKS-FIRST DIRECTORY                          */}
+        {/* 3. UGC CREATORS — REAL CREATORS NETWORK (UP TO 10 CREATORS)      */}
         {/* ============================================================== */}
         {(activeTab === 'all' || activeTab === 'ugc') && (
           <div>
@@ -505,17 +515,19 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
               <div>
                 <span className="text-xs font-black text-[#c49348] tracking-widest uppercase block mb-1">
-                  03 • ORGANIC & DINING CONTENT POOL
+                  03 • {lang === 'ar' ? 'صُنّاع المحتوى' : 'UGC CREATORS'}
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
-                  {t.sections.ugcTitle}
+                  {lang === 'ar' ? 'صُنّاع المحتوى' : 'UGC Creators'}
                 </h3>
                 <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
-                  {t.sections.ugcSubtitle}
+                  {lang === 'ar'
+                    ? 'شبكة صناع محتوى حقيقيين من بيانات المشروع مع روابط مباشرة لحساباتهم المعتمدة دون ادعاء أرقام وصول افتراضية.'
+                    : 'Real creator network from project records with direct profile links to demonstrate available creator ecosystem.'}
                 </p>
               </div>
               <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#c49348]/10 text-[#92400e] border border-[#c49348]/20">
-                {UGC_CREATORS.length} Active Candidates
+                {UGC_CREATORS.length} {lang === 'ar' ? 'صانع محتوى' : 'Creators'}
               </span>
             </div>
 
@@ -535,7 +547,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
 
               {/* Platform Filter */}
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
-                {(['all', 'instagram', 'tiktok', 'facebook'] as const).map((p) => (
+                {(['all', 'instagram', 'facebook'] as const).map((p) => (
                   <button
                     key={p}
                     onClick={() => setUgcPlatformFilter(p)}
@@ -552,7 +564,7 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
               </div>
             </div>
 
-            {/* UGC Links-First Compact Profile Grid */}
+            {/* UGC Compact Profile Grid — 3 Cards per row on Desktop */}
             {filteredUgcCreators.length === 0 ? (
               <div className="p-10 text-center rounded-2xl bg-white border border-[#e8e0d5]">
                 <p className="text-xs text-[#64748b]">
@@ -560,21 +572,37 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredUgcCreators.map((creator) => {
                   const initials = getInitials(creator.nameEn);
+                  const creatorName = lang === 'ar' ? creator.nameAr : creator.nameEn;
                   return (
                     <div
                       key={creator.id}
-                      className="p-4 rounded-xl bg-white border border-[#e8e0d5] hover:border-[#c49348]/40 hover:shadow-sm transition-all flex items-center justify-between gap-3 group"
+                      className="p-4 rounded-2xl bg-white border border-[#e8e0d5] hover:border-[#c49348]/40 hover:shadow-sm transition-all flex items-center justify-between gap-3 group"
                     >
                       <div className="flex items-center gap-3 overflow-hidden">
-                        <div className="w-10 h-10 rounded-xl bg-[#faf8f5] border border-[#e8e0d5] flex items-center justify-center text-xs font-extrabold text-[#78350f] flex-shrink-0">
-                          {initials}
-                        </div>
+                        {creator.image ? (
+                          <div
+                            onClick={() => setLightboxImage({ src: creator.image || '', title: creatorName })}
+                            className="w-12 h-12 rounded-xl overflow-hidden border border-[#e8e0d5] flex-shrink-0 cursor-zoom-in"
+                            title={lang === 'ar' ? 'تكبير الصورة' : 'Click to enlarge'}
+                          >
+                            <img
+                              src={creator.image}
+                              alt={creatorName}
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-12 h-12 rounded-xl bg-[#faf8f5] border border-[#e8e0d5] flex items-center justify-center text-xs font-black text-[#78350f] flex-shrink-0">
+                            {initials}
+                          </div>
+                        )}
+
                         <div className="overflow-hidden">
                           <h5 className="text-xs font-bold text-[#1a202c] group-hover:text-[#c49348] transition-colors truncate">
-                            {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                            {creatorName}
                           </h5>
                           <div className="flex items-center gap-1.5 mt-0.5">
                             {getPlatformIcon(creator.platform, "w-3 h-3 flex-shrink-0")}
@@ -582,6 +610,11 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                               {creator.handle}
                             </span>
                           </div>
+                          {creator.followers && (
+                            <span className="text-[10px] font-bold text-[#b45309]">
+                              {creator.followers}
+                            </span>
+                          )}
                         </div>
                       </div>
 
@@ -589,10 +622,11 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
                         href={creator.primaryLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="min-h-[36px] min-w-[36px] p-2 rounded-lg bg-[#faf8f5] hover:bg-[#c49348] hover:text-white text-[#475569] flex items-center justify-center flex-shrink-0 transition-colors"
+                        className="min-h-[44px] min-w-[44px] p-2 rounded-xl bg-[#faf8f5] hover:bg-[#c49348] hover:text-white text-[#475569] flex items-center justify-center flex-shrink-0 transition-colors shadow-2xs"
                         title={t.card.viewProfile}
+                        aria-label={`Open profile of ${creatorName}`}
                       >
-                        <ExternalLink className="w-3.5 h-3.5" />
+                        <ExternalLink className="w-4 h-4" />
                       </a>
                     </div>
                   );
@@ -603,6 +637,60 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
         )}
 
       </div>
+
+      {/* ============================================================== */}
+      {/* ACCESSIBLE LIGHTBOX / IMAGE VIEWER                             */}
+      {/* ============================================================== */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => setLightboxImage(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="relative max-w-4xl max-h-[92vh] w-full bg-white rounded-3xl p-4 sm:p-6 shadow-2xl border border-white/20 flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Lightbox Header with Visible Close Button */}
+            <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-[#e8e0d5]">
+              <div className="flex items-center gap-2 overflow-hidden">
+                <CheckCircle2 className="w-4 h-4 text-[#c5384a] flex-shrink-0" />
+                <h4 className="text-sm sm:text-base font-bold text-[#1a202c] truncate">
+                  {lightboxImage.title}
+                </h4>
+              </div>
+
+              <button
+                onClick={() => setLightboxImage(null)}
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl bg-[#faf8f5] hover:bg-[#c5384a] text-[#475569] hover:text-white transition-colors"
+                aria-label="Close image lightbox"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Lightbox Image Body */}
+            <div className="overflow-auto max-h-[75vh] w-full flex items-center justify-center rounded-2xl bg-[#f5f0e8] p-2">
+              <img
+                src={lightboxImage.src}
+                alt={lightboxImage.title}
+                className="max-h-[70vh] max-w-full object-contain rounded-xl shadow-lg"
+              />
+            </div>
+
+            {/* Lightbox Footer Note */}
+            <div className="w-full pt-3 mt-3 text-center border-t border-[#f0ebe3]">
+              <p className="text-[11px] text-[#64748b]">
+                {lang === 'ar'
+                  ? 'صورة أصلية معتمدة محلياً من ملفات المشروع | اضغط زر الإغلاق أو مفتاح Escape للعودة'
+                  : 'Original verified local project asset | Tap close or press Escape to return'}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 };

@@ -1,205 +1,154 @@
-import React, { useState } from 'react';
-import { Language, PortfolioItem } from '../types';
+import React from 'react';
+import { Language } from '../types';
 import { CONTENT } from '../data/content';
-import { PORTFOLIO_ITEMS } from '../data/portfolio';
+import { FB_CLIENTS } from '../data/portfolio';
 import {
   ExternalLink,
-  Phone,
+  UtensilsCrossed,
   CheckCircle,
   Eye,
-  MapPin,
-  Users,
-  Film,
-  UtensilsCrossed
+  Award
 } from 'lucide-react';
 
 interface PortfolioFBProps {
   lang: Language;
-  onInspectImage: (src: string, title: string) => void;
+  onInspectImage?: (src: string, title: string) => void;
 }
+
+const InstagramIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689-.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+);
+
+const FacebookIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
 
 export const PortfolioFB: React.FC<PortfolioFBProps> = ({ lang, onInspectImage }) => {
   const t = CONTENT[lang].clientsSection;
-  const [activeCategory, setActiveCategory] = useState<string>('all');
-
-  const categories = [
-    { id: 'all', labelAr: 'جميع العملاء (10)', labelEn: 'All Clients (10)' },
-    { id: 'seafood', labelAr: 'مأكولات بحرية (2)', labelEn: 'Seafood (2)' },
-    { id: 'dining', labelAr: 'مطاعم راقية (3)', labelEn: 'Fine Dining (3)' },
-    { id: 'cafe_resort', labelAr: 'كافيهات ومنتجعات (3)', labelEn: 'Cafes & Resorts (3)' },
-    { id: 'fast_casual', labelAr: 'وجبات سريعة وعائلية (2)', labelEn: 'Fast Casual (2)' }
-  ];
-
-  const filteredItems = PORTFOLIO_ITEMS.filter((item) => {
-    if (activeCategory === 'all') return true;
-    if (activeCategory === 'seafood') return item.id === 'omar-effendi' || item.id === 'asmak-el-prince';
-    if (activeCategory === 'dining') return item.id === 'mawlay' || item.id === 'folk-restaurant' || item.id === 'costa-blanca';
-    if (activeCategory === 'cafe_resort') return item.id === 'il-campo' || item.id === 'blueview-cafe' || item.id === 'oliver-cafe';
-    if (activeCategory === 'fast_casual') return item.id === '5-roosters' || item.id === 'puka';
-    return true;
-  });
 
   return (
-    <section id="fb-portfolio" className="py-20 sm:py-24 bg-[#11141a] relative border-t border-white/5">
+    <section id="fb-portfolio" className="py-20 sm:py-24 bg-[#faf8f5] text-[#1a202c] relative border-t border-[#e8e0d5]">
+      {/* Subtle Watercolor Aura */}
+      <div className="absolute top-10 left-1/4 w-[450px] h-[450px] bg-gradient-to-tr from-[#c5384a]/5 via-[#c49348]/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e84d58]/10 border border-[#e84d58]/20 text-xs font-semibold text-[#e84d58] uppercase mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c5384a]/10 border border-[#c5384a]/20 text-xs font-bold text-[#c5384a] uppercase tracking-wider mb-4">
             <UtensilsCrossed className="w-3.5 h-3.5" />
             <span>{t.badge}</span>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4 sm:mb-5 tracking-tight px-2">
-            {t.title}
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#1a202c] mb-4 tracking-tight px-2">
+            {lang === 'ar' ? 'عملاؤنا في قطاع الأغذية والمشروبات' : 'Our Food & Beverage Clients'}
           </h2>
 
-          <p className="text-sm sm:text-base md:text-lg text-gray-400 leading-relaxed font-normal px-2">
-            {t.subtitle}
+          <p className="text-sm sm:text-base md:text-lg text-[#475569] leading-relaxed font-normal px-2">
+            {lang === 'ar'
+              ? 'جدارية الشعارات الأصلية المعتمدة لشركائنا البارزين في قطاع المطاعم والأغذية، مع روابط مباشرة لمنصاتهم الرسمية.'
+              : 'Clean responsive showcase featuring the official standalone logos of our distinguished restaurant and dining partners with direct destination links.'}
           </p>
-
-          {/* Category Filter Pills — Touch Friendly */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mt-6 sm:mt-8">
-            {categories.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                className={`min-h-[44px] px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-150 active:scale-95 ${
-                  activeCategory === cat.id
-                    ? 'bg-[#e84d58] text-white shadow-md shadow-[#e84d58]/25 scale-102 font-bold'
-                    : 'bg-white/5 text-gray-300 hover:bg-white/10 border border-white/5'
-                }`}
-              >
-                {lang === 'ar' ? cat.labelAr : cat.labelEn}
-              </button>
-            ))}
-          </div>
         </div>
 
-        {/* Portfolio Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
-          {filteredItems.map((item) => (
-            <div
-              key={item.id}
-              className="group bg-[#181d26] rounded-2xl border border-white/10 overflow-hidden flex flex-col hover:border-[#e84d58]/40 hover:shadow-2xl hover:shadow-[#e84d58]/10 transition-all duration-300"
-            >
-              {/* Media Asset Preview Header with Reserved Aspect Ratio */}
-              <div className="relative aspect-[4/5] bg-black/40 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={lang === 'ar' ? item.nameAr : item.nameEn}
-                  width="400"
-                  height="500"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-102"
-                />
+        {/* Responsive Logo Wall Grid (Side-by-Side 4 Cards on Desktop) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          {FB_CLIENTS.map((client) => {
+            const isInstagram = client.platform === 'instagram';
+            return (
+              <div
+                key={client.id}
+                className="group bg-white rounded-3xl border border-[#e8e0d5] hover:border-[#c5384a]/40 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-sm"
+              >
+                {/* Logo Presentation Area (Standalone Original Logo, No Screenshots) */}
+                <div className="p-6 pb-2">
+                  <div className="relative aspect-square rounded-2xl bg-[#faf8f5] border border-[#e8e0d5] flex items-center justify-center p-6 overflow-hidden group-hover:border-[#c5384a]/30 transition-colors">
+                    <img
+                      src={client.logo}
+                      alt={lang === 'ar' ? client.nameAr : client.nameEn}
+                      className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
 
-                {/* Top Badge Overlay */}
-                <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                  <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-[#14181f]/85 backdrop-blur-md text-white border border-white/15">
-                    {lang === 'ar' ? item.categoryAr : item.categoryEn}
-                  </span>
-
-                  {item.isVerified && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30 backdrop-blur-md">
-                      <CheckCircle className="w-3 h-3 fill-blue-400 text-[#14181f]" />
+                    {/* Verified Badge Overlay */}
+                    <div className="absolute top-3 right-3 flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-white/90 backdrop-blur-xs text-[#326084] border border-[#e8e0d5] shadow-xs">
+                      <CheckCircle className="w-3 h-3 text-[#326084] fill-[#326084]/20" />
                       <span>{t.verifiedClient}</span>
-                    </span>
-                  )}
-                </div>
-
-                {/* Tap-Friendly Floating Inspect Badge for Mobile & Desktop */}
-                <div className="absolute bottom-3 right-3 left-3 flex justify-end">
-                  <button
-                    onClick={() => onInspectImage(item.image, lang === 'ar' ? item.nameAr : item.nameEn)}
-                    aria-label={t.viewOriginalAsset}
-                    className="min-h-[44px] inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-[#14181f]/90 hover:bg-[#e84d58] border border-white/20 shadow-xl backdrop-blur-md transition-all active:scale-95"
-                  >
-                    <Eye className="w-4 h-4" />
-                    <span>{t.viewOriginalAsset}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                <div>
-                  {/* Brand Title */}
-                  <div className="mb-2">
-                    <h3 className="text-base sm:text-xl font-bold text-white group-hover:text-[#e84d58] transition-colors leading-snug">
-                      {lang === 'ar' ? item.nameAr : item.nameEn}
-                    </h3>
-                    <p className="text-xs text-gray-400 font-mono mt-0.5">{item.handle}</p>
-                  </div>
-
-                  {/* Followers & Posts stats bar */}
-                  <div className="flex items-center gap-3 py-2.5 px-3 rounded-xl bg-white/5 text-xs text-gray-300 font-medium mb-3">
-                    <div className="flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-[#e84d58]" />
-                      <span className="font-bold text-white">{item.followers}</span>
-                      <span className="text-gray-400">{lang === 'ar' ? 'متابع' : 'Followers'}</span>
                     </div>
-                    <div className="w-1 h-1 rounded-full bg-gray-500"></div>
-                    <div className="flex items-center gap-1.5">
-                      <Film className="w-3.5 h-3.5 text-amber-400" />
-                      <span className="font-bold text-white">{item.posts}</span>
-                      <span className="text-gray-400">{lang === 'ar' ? 'منشور' : 'Posts'}</span>
+
+                    {/* Quick Lightbox Action for Logo */}
+                    {onInspectImage && (
+                      <button
+                        onClick={() => onInspectImage(client.logo, lang === 'ar' ? client.nameAr : client.nameEn)}
+                        className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity p-2 rounded-xl bg-white/90 hover:bg-white text-[#1a202c] shadow-md border border-[#e8e0d5]"
+                        title={lang === 'ar' ? 'معاينة الشعار بدقة عالية' : 'Enlarge original logo'}
+                        aria-label="Enlarge logo"
+                      >
+                        <Eye className="w-3.5 h-3.5 text-[#475569]" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Brand Details */}
+                <div className="p-6 pt-3 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="mb-2">
+                      <span className="text-[11px] font-bold text-[#c5384a] uppercase tracking-wider block mb-1">
+                        {lang === 'ar' ? client.categoryAr : client.categoryEn}
+                      </span>
+                      <h3 className="text-base sm:text-lg font-black text-[#1a202c] group-hover:text-[#c5384a] transition-colors leading-snug">
+                        {lang === 'ar' ? client.nameAr : client.nameEn}
+                      </h3>
+                    </div>
+
+                    {/* Strategic Highlights */}
+                    <div className="space-y-1.5 my-4 pt-3 border-t border-[#f0ebe3]">
+                      {(lang === 'ar' ? client.highlightsAr : client.highlightsEn).map((h, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-[#475569]">
+                          <span className="text-[#c5384a] font-black text-sm leading-none">•</span>
+                          <span className="leading-snug">{h}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Location Info */}
-                  <div className="flex items-start gap-1.5 text-xs text-gray-400 mb-3">
-                    <MapPin className="w-3.5 h-3.5 text-gray-500 flex-shrink-0 mt-0.5" />
-                    <span className="line-clamp-1">{lang === 'ar' ? item.locationAr : item.locationEn}</span>
-                  </div>
-
-                  {/* Strategic Highlights */}
-                  <div className="space-y-1.5 mb-5">
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-                      {t.keyMetrics}
-                    </p>
-                    {(lang === 'ar' ? item.highlightsAr : item.highlightsEn).map((h, i) => (
-                      <div key={i} className="flex items-start gap-1.5 text-xs text-gray-300">
-                        <span className="text-[#e84d58] font-bold">•</span>
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Action Links — Minimum 44px Touch Targets */}
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between gap-2">
-                  <button
-                    onClick={() => onInspectImage(item.image, lang === 'ar' ? item.nameAr : item.nameEn)}
-                    className="min-h-[44px] inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                    <span>{lang === 'ar' ? 'تكبير اللقطة' : 'Enlarge'}</span>
-                  </button>
-
-                  {item.link.startsWith('tel:') ? (
+                  {/* Destination Action Link — Minimum 44px Touch Target */}
+                  <div className="pt-4 border-t border-[#f0ebe3]">
                     <a
-                      href={item.link}
-                      className="min-h-[44px] inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-[#e84d58] bg-[#e84d58]/10 hover:bg-[#e84d58]/20 transition-colors active:scale-95"
-                    >
-                      <Phone className="w-3.5 h-3.5" />
-                      <span>{item.link.replace('tel:', '')}</span>
-                    </a>
-                  ) : (
-                    <a
-                      href={item.link}
+                      href={client.destinationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="min-h-[44px] inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-white/10 hover:bg-white/20 transition-colors active:scale-95"
+                      className={`w-full min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold text-white transition-all duration-200 active:scale-95 shadow-sm ${
+                        isInstagram
+                          ? 'bg-gradient-to-r from-[#c5384a] to-[#d95a6c] hover:from-[#b02a3a] hover:to-[#c5384a]'
+                          : 'bg-[#1877F2] hover:bg-[#166fe5]'
+                      }`}
                     >
+                      {isInstagram ? <InstagramIcon className="w-4 h-4" /> : <FacebookIcon className="w-4 h-4" />}
                       <span>{t.viewLink}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
-                  )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+
+        {/* Client Wall Assurance Banner */}
+        <div className="mt-12 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white border border-[#e8e0d5] text-xs text-[#64748b] shadow-xs">
+            <Award className="w-4 h-4 text-[#c49348]" />
+            <span>
+              {lang === 'ar'
+                ? 'شعارات أصلية معتمدة من ملفات سابقة الأعمال دون استخدام لقطات شاشة غير مخصصة للعرض'
+                : 'Original verified client logos preserved without displaying unformatted screenshots'}
+            </span>
+          </div>
         </div>
       </div>
     </section>

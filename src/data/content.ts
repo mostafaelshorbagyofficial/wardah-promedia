@@ -179,27 +179,27 @@ export const CONTENT = {
     },
     influencers: {
       badge: 'استراتيجية المؤثرين وصناع المحتوى',
-      title: 'منظومة المؤثرين المقترحة لمطعم وكافيه Wardah',
-      subtitle: 'عرض تحليلي استراتيجي رفيع المستوى يقدم مرشح الأولوية El Zuzzat، وقائمة الميجا إنفلونسرز الأربعة، والميني إنفلونسرز، ودليل صناع محتوى UGC.',
+      title: 'أبرز مؤثري الطعام وصناع المحتوى لـ Wardah',
+      subtitle: 'عرض تحليلي استراتيجي رفيع المستوى يقدم أبرز مؤثري الطعام الأربعة (الزوزات، عمرو الهادي، الشيف محمد صلاح، الإكسلانس)، ومؤثري الطعام المختارين، وصناع محتوى UGC.',
       disclaimer: 'تنويه مهني شفاف: أرقام المتابعين والجمهور المعروضة هي بيانات استرشادية واردة بملف المشروع وقد تتغير بمرور الوقت ولا تعكس بالضرورة أفراداً فريدين أو وصولاً مضموناً للحملة.',
       combinedAudienceLabel: 'إجمالي الجمهور التقريبي',
       combinedAudienceNote: 'أرقام الجمهور الإجمالية تقريبية مجمعة عبر المنصات المذكورة وقد تتضمن متابعين مشتركين، ولا تعبر عن أفراد فريدين أو نتائج وصول مضمونة.',
       priorityBadge: 'الأولوية القصوى — ترشيح استراتيجي خاص',
-      priorityTitle: 'الزوذات — El Zuzzat',
+      priorityTitle: 'الزوزات — El Zuzzat',
       prioritySubtitle: 'مرشح ذو أولوية للحملة الافتتاحية نظراً لأسلوبهما التفاعلي الاستثنائي في توثيق تجارب المطاعم والوجبات العائلية.',
       sections: {
-        megaTitle: 'Mega Influencers | الميجا إنفلونسرز',
-        megaSubtitle: 'النخبة الأوسع انتشاراً لتحقيق أعلى درجات الوعي التجاري والزخم الجماهيري لإطلاق Wardah.',
-        miniTitle: 'Mini Influencers | الميني إنفلونسرز',
-        miniSubtitle: 'صناع محتوى ذوو وصول موجه وتفاعل عالي الجودة متخصصون في تجارب الطعام والمقاهي وأسلوب الحياة الراقي.',
-        ugcTitle: 'UGC Creators | صناع محتوى UGC',
-        ugcSubtitle: 'دليل صناع تجارب الزوار والفيديوهات العفوية والأجواء — قائمة مباشرة بالروابط المعتمدة للمنصات.'
+        megaTitle: 'أبرز مؤثري الطعام',
+        megaSubtitle: 'نخبة مؤثري الطعام الأربعة المعتمدين بالترتيب لتحقيق أقصى درجات الوعي والانتشار لمطعم وكافيه Wardah.',
+        miniTitle: 'مؤثرو الطعام المختارون',
+        miniSubtitle: 'صناع محتوى ذوو وصول موجه وتفاعل عالي الجودة متخصصون في تجارب الطعام والمقاهي والطهي العائلي.',
+        ugcTitle: 'صُنّاع المحتوى',
+        ugcSubtitle: 'شبكة صناع تجارب الزوار والفيديوهات العفوية والأجواء — قائمة مباشرة بالروابط المعتمدة للمنصات.'
       },
       tabs: {
         all: 'جميع الأقسام',
-        mega: 'الميجا إنفلونسرز (4)',
-        mini: 'الميني إنفلونسرز (4)',
-        ugc: 'صناع محتوى UGC'
+        mega: 'أبرز مؤثري الطعام (4)',
+        mini: 'مؤثرو الطعام المختارون (3)',
+        ugc: 'صُنّاع المحتوى (10)'
       },
       filters: {
         platform: 'المنصة',
@@ -567,27 +567,27 @@ export const CONTENT = {
     },
     influencers: {
       badge: 'Creator Strategy & Influencer Showcase',
-      title: 'Curated Influencer Showcase for Wardah Egypt',
-      subtitle: 'An executive editorial showcase introducing priority candidate El Zuzzat, four high-reach Mega Influencers, four focused Mini Influencers, and a direct links-first UGC creator directory.',
+      title: 'Featured Food Influencers & Creator Ecosystem',
+      subtitle: 'An executive editorial showcase introducing the four Featured Food Influencers (El Zuzzat, Amr El Hady, Chef Mohamed Salah, El Exlance), curated Mini Influencers, and UGC creators.',
       disclaimer: 'Transparent Professional Disclaimer: Audience figures are user-provided project reference figures, not live-verified statistics, and do not imply unique individuals or guaranteed reach.',
       combinedAudienceLabel: 'Approx. Combined Audience',
       combinedAudienceNote: 'Combined audience numbers are estimated across listed platforms and may include overlapping followers. They should not be interpreted as unique individuals or guaranteed campaign reach.',
       priorityBadge: 'Top Priority Placement — Featured Strategic Recommendation',
-      priorityTitle: 'El Zuzzat — Priority Placement',
+      priorityTitle: 'El Zuzzat',
       prioritySubtitle: 'Designated top priority candidate for the campaign launch wave due to outstanding audience engagement and authentic food storytelling.',
       sections: {
-        megaTitle: 'Mega Influencers | الميجا إنفلونسرز',
-        megaSubtitle: 'Top-tier creators selected for broad awareness, viral reach, and massive campaign visibility for Wardah Egypt.',
-        miniTitle: 'Mini Influencers | الميني إنفلونسرز',
-        miniSubtitle: 'Curated high-affinity creators focused on culinary recipes, couples dining, and refined lifestyle aesthetics.',
-        ugcTitle: 'UGC Creators | صناع محتوى UGC',
+        megaTitle: 'Featured Food Influencers',
+        megaSubtitle: 'Top four designated food creators in exact order for maximum brand awareness and launch visibility for Wardah Egypt.',
+        miniTitle: 'Mini Influencers',
+        miniSubtitle: 'Curated high-affinity creators focused on culinary recipes, dining vlogs, and family food exploration.',
+        ugcTitle: 'UGC Creators',
         ugcSubtitle: 'Authentic dining experience storytellers — clean, links-first directory with direct social profile access.'
       },
       tabs: {
         all: 'All Sections',
-        mega: 'Mega Influencers (4)',
-        mini: 'Mini Influencers (4)',
-        ugc: 'UGC Creators'
+        mega: 'Featured Food Influencers (4)',
+        mini: 'Mini Influencers (3)',
+        ugc: 'UGC Creators (10)'
       },
       filters: {
         platform: 'Platform',
