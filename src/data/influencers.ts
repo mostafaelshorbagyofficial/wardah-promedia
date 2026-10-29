@@ -1,5 +1,8 @@
 import { CreatorCandidate } from '../types';
 
+// ============================================================================
+// 0. PRIORITY CANDIDATE — EL ZUZZAT (TOP OF INFLUENCER SHOWCASE)
+// ============================================================================
 export const PRIORITY_CREATOR: CreatorCandidate = {
   id: 'el-zuzzat',
   nameAr: 'الزوذات — El Zuzzat',
@@ -12,7 +15,7 @@ export const PRIORITY_CREATOR: CreatorCandidate = {
   secondaryPlatform: 'facebook',
   followers: 'مرشح أولوية أولى',
   isFollowerVerified: true,
-  categoryAr: 'صناع محتوى طعام وتجارب مطاعم — أولوية ترشيح أولى',
+  categoryAr: 'صناع محتوى تجارب طعام وضيافة عائلية — أولوية ترشيح أولى',
   categoryEn: 'Food Experience & Restaurant Reviews — Top Priority Candidate',
   tags: ['Priority Placement', 'High Engagement', 'Restaurant Experience', 'Viral Reach'],
   image: '/assets/influencers/el-zuzzat.jpg',
@@ -22,9 +25,35 @@ export const PRIORITY_CREATOR: CreatorCandidate = {
 };
 
 // ============================================================================
-// 1. MEGA INFLUENCERS (Broad Awareness, High Reach, High Impact)
+// 1. MEGA INFLUENCERS — EXACTLY FOUR (IN SPECIFIED ORDER)
 // ============================================================================
-export const MEGA_CREATORS: CreatorCandidate[] = [
+export const MEGA_INFLUENCERS_TOP4: CreatorCandidate[] = [
+  {
+    id: 'adham-singer',
+    nameAr: 'أدهم سنجر',
+    nameEn: 'Adham Singer',
+    handle: '@adham_singer_',
+    tier: 'mega',
+    platform: 'tiktok',
+    primaryLink: 'https://www.tiktok.com/@adham_singer_',
+    secondaryLink: 'https://www.instagram.com/adham_singer/',
+    secondaryPlatform: 'instagram',
+    roleAr: 'Food Blogger • مدون طعام وتجارب ترفيهية',
+    roleEn: 'Food Blogger & Entertainment Outings',
+    categoryAr: 'تجارب ترفيهية ومطاعم وأماكن شبابية ذات تفاعل هائل',
+    categoryEn: 'Entertainment, Cafes & Youth Dining Vlogs',
+    image: '/assets/influencers/adham-singer.jpg',
+    combinedAudience: '5.3M+',
+    combinedAudienceNoteAr: 'إجمالي الجمهور التقريبي عبر 4 منصات',
+    combinedAudienceNoteEn: 'Approx. combined audience across 4 platforms',
+    platforms: [
+      { platform: 'tiktok', url: 'https://www.tiktok.com/@adham_singer_', count: '~2.14M', isConfirmed: true },
+      { platform: 'facebook', url: 'https://www.facebook.com/iamadhamsinger', count: '~2.5M', isConfirmed: true },
+      { platform: 'instagram', url: 'https://www.instagram.com/adham_singer/', count: '500K+', isConfirmed: true },
+      { platform: 'youtube', url: 'https://www.youtube.com/@adham_singer_', count: '~196K', isConfirmed: true }
+    ],
+    tags: ['Food Blogger', '5.3M+ Combined', 'Mega Reach', 'Youth & Family']
+  },
   {
     id: 'mohamed-ahmed',
     nameAr: 'محمد أحمد',
@@ -32,91 +61,84 @@ export const MEGA_CREATORS: CreatorCandidate[] = [
     handle: 'MohamedAhmed1214',
     tier: 'mega',
     platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/MohamedAhmed1214?mibextid=ZbWKwL',
-    secondaryLink: 'https://www.instagram.com/mohamed.ahmed14.official?rpxt=MXFtOG8yOHBkYnA0bA==',
+    primaryLink: 'https://www.facebook.com/MohamedAhmed1214',
+    secondaryLink: 'https://www.instagram.com/mohamed.ahmed14.official/',
     secondaryPlatform: 'instagram',
-    followers: '243K',
-    isFollowerVerified: true,
-    categoryAr: 'مراجعات طعام وأماكن خروج وجولات تجربة',
-    categoryEn: 'Food Reviews & Outings',
-    tags: ['Facebook', 'Instagram', 'Food Reviewer', 'High Reach']
+    roleAr: 'Food Reviews & Outings • مراجعات طعام وجولات خروج',
+    roleEn: 'Food Reviews & Outings',
+    categoryAr: 'مراجعات طعام وأماكن خروج وجولات تجربة في القاهرة والإسكندرية',
+    categoryEn: 'Food Reviews & Dining Outings',
+    image: '/assets/influencers/mohamed-ahmed.jpg',
+    combinedAudience: '1.37M',
+    combinedAudienceNoteAr: 'إجمالي الجمهور التقريبي عبر منصتين',
+    combinedAudienceNoteEn: 'Approx. combined audience across 2 platforms',
+    platforms: [
+      { platform: 'facebook', url: 'https://www.facebook.com/MohamedAhmed1214', count: '~1.1M', isConfirmed: true },
+      { platform: 'instagram', url: 'https://www.instagram.com/mohamed.ahmed14.official/', count: '~270K', isConfirmed: true }
+    ],
+    tags: ['Food Reviewer', '1.37M Combined', 'High Trust', 'Dining Tours']
   },
   {
     id: 'hany-food',
     nameAr: 'هاني فود — Hany Samiir',
     nameEn: 'Hany Food (Hany Samiir)',
-    handle: 'hanysamiirr',
+    handle: '@hanyfood',
     tier: 'mega',
     platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/hanysamiirr?mibextid=LQQJ4d',
-    followers: '~350K',
-    isFollowerVerified: true,
-    categoryAr: 'جولات مطاعم وتقييم وجبات وتغطيات واسعة',
-    categoryEn: 'Food Tours & Restaurant Reviews',
-    tags: ['Facebook', 'Dining Tours', 'High Reach']
-  },
-  {
-    id: 'karim-effat',
-    nameAr: 'كريم عفت — KE Coach',
-    nameEn: 'Karim Effat (KEcoach)',
-    handle: 'KEcoach',
-    tier: 'mega',
-    platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/KEcoach?mibextid=LQQJ4d',
-    followers: '382K',
-    isFollowerVerified: true,
-    categoryAr: 'أسلوب حياة وصحة وتغذية وتجارب طعام اجتماعية',
-    categoryEn: 'Lifestyle, Nutrition & Food Choices',
-    tags: ['Lifestyle', 'Dining Out', 'Facebook', 'High Reach']
-  },
-  {
-    id: 'adham-singer',
-    nameAr: 'أدهم سنجر',
-    nameEn: 'Adham Singer',
-    handle: 'iamadhamsinger',
-    tier: 'mega',
-    platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/iamadhamsinger?mibextid=ZbWKwL',
-    followers: '779K',
-    isFollowerVerified: true,
-    categoryAr: 'تجارب ترفيهية ومطاعم وأماكن شبابية ذات تفاعل هائل',
-    categoryEn: 'Entertainment, Cafes & Youth Outings',
-    tags: ['Mega Reach', 'Facebook', 'Youth Audience', 'High Impact']
+    primaryLink: 'https://www.facebook.com/hanysamiirr',
+    secondaryLink: 'https://www.tiktok.com/@hanyfood',
+    secondaryPlatform: 'tiktok',
+    roleAr: 'Food Tours & Tastings • جولات مطاعم وتقييم وجبات',
+    roleEn: 'Food Tours & Restaurant Reviews',
+    categoryAr: 'جولات مطاعم وتقييم وجبات وتغطيات واسعة لأشهى الأطباق',
+    categoryEn: 'Food Tours & In-Depth Restaurant Reviews',
+    image: '/assets/influencers/hany-food.jpg',
+    combinedAudience: '7.28M',
+    combinedAudienceNoteAr: 'إجمالي الجمهور التقريبي عبر 4 منصات',
+    combinedAudienceNoteEn: 'Approx. combined audience across 4 platforms',
+    platforms: [
+      { platform: 'facebook', url: 'https://www.facebook.com/hanysamiirr', count: '~4.2M', isConfirmed: true },
+      { platform: 'tiktok', url: 'https://www.tiktok.com/@hanyfood', count: '~1.6M', isConfirmed: true },
+      { platform: 'youtube', url: 'https://www.youtube.com/@hanyfood1', count: '~1.12M', isConfirmed: true },
+      { platform: 'instagram', url: 'https://www.instagram.com/hany__food', count: '~360K', isConfirmed: true }
+    ],
+    tags: ['Mega Reach', '7.28M Combined', 'Food Tours', 'Viral Videos']
   },
   {
     id: 'hesham-taha',
-    nameAr: 'د. هشام طه',
-    nameEn: 'Dr. Hesham Taha',
+    nameAr: 'هشام محمد طه — د. هشام طه',
+    nameEn: 'Hesham M. Taha (Dr. Hesham Taha)',
     handle: '@drheshamtaha',
     tier: 'mega',
     platform: 'tiktok',
-    primaryLink: 'https://www.tiktok.com/@drheshamtaha?_t=8Xl2bRqBklZ&_r=1',
-    followers: '~1.5M',
-    isFollowerVerified: true,
-    categoryAr: 'فيديوهات قصيرة سريعة الانتشار وتجارب أماكن فاخرة',
-    categoryEn: 'Short-Form Viral Video & Outings',
-    tags: ['TikTok', 'Viral Creator', '1M+', 'High Reach']
-  },
-  {
-    id: 'akl-w-b7la2a',
-    nameAr: 'أكل وبحلقة',
-    nameEn: 'Akl w B7la2a',
-    handle: '@aklwba7la2a_',
-    tier: 'mega',
-    platform: 'instagram',
-    primaryLink: 'https://www.instagram.com/aklwba7la2a_?igsh=MWMxeGZkNTBlMDByOQ==',
-    followers: '261K',
-    isFollowerVerified: true,
-    categoryAr: 'استكشاف أكلات وتجارب مطاعم جديدة وفلوجات طعام',
-    categoryEn: 'Food Exploration & Restaurant Vlogs',
-    tags: ['Instagram', 'Foodie Vlogs', 'Engaged Audience']
+    primaryLink: 'https://www.tiktok.com/@drheshamtaha',
+    secondaryLink: 'https://www.instagram.com/dr_hesham_m_taha/',
+    secondaryPlatform: 'instagram',
+    roleAr: 'Short-Form Viral Food • تجارب سريعة وأسلوب حياة راقٍ',
+    roleEn: 'Short-Form Viral Food & Lifestyle',
+    categoryAr: 'فيديوهات قصيرة سريعة الانتشار وتجارب أماكن مميزة وراقية',
+    categoryEn: 'Short-Form Viral Video & Dining Exploration',
+    image: '/assets/influencers/hesham-taha.jpg',
+    combinedAudience: '3.86M+',
+    combinedAudienceNoteAr: 'إجمالي الجمهور المعلوم (باستثناء فيسبوك لعدم تأكيده)',
+    combinedAudienceNoteEn: 'Known combined audience (excl. unconfirmed Facebook)',
+    platforms: [
+      { platform: 'tiktok', url: 'https://www.tiktok.com/@drheshamtaha', count: '~1.9M', isConfirmed: true },
+      { platform: 'youtube', url: 'https://www.youtube.com/@heshamtaha', count: '~1.76M', isConfirmed: true },
+      { platform: 'instagram', url: 'https://www.instagram.com/dr_hesham_m_taha/', count: '~198K', isConfirmed: true },
+      { platform: 'facebook', url: 'https://www.facebook.com/HeshamTahaOfficial', count: 'غير مؤكد', isConfirmed: false }
+    ],
+    tags: ['Short-Form Viral', '3.86M+ Known', 'TikTok Leader', 'Aesthetic Outings']
   }
 ];
 
+// Alias for backwards compatibility
+export const MEGA_CREATORS = MEGA_INFLUENCERS_TOP4;
+
 // ============================================================================
-// 2. MINI INFLUENCERS (Targeted Reach, Local Discovery & High Affinity)
+// 2. MINI INFLUENCERS — EXACTLY FOUR (HIGH-AFFINITY DINING & LIFESTYLE)
 // ============================================================================
-export const MINI_CREATORS: CreatorCandidate[] = [
+export const MINI_INFLUENCERS_TOP4: CreatorCandidate[] = [
   {
     id: 'nadine-alaa',
     nameAr: 'نادين علاء — Cuisine de Nadine',
@@ -127,9 +149,14 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     primaryLink: 'https://www.instagram.com/cuisine_de_nadine_?igsh=ZWtqb3BwaW9zaXU5',
     followers: '99K',
     isFollowerVerified: true,
-    categoryAr: 'فنون الطهي والضيافة والتنسيق الجمالي الراقي',
-    categoryEn: 'Culinary Recipes & Hospitality',
-    tags: ['Culinary', 'Food Styling', 'Lifestyle', 'Refined Audience']
+    roleAr: 'Culinary Recipes & Hospitality • فنون الطهي والضيافة',
+    roleEn: 'Culinary Recipes & Hospitality',
+    categoryAr: 'فنون الطهي والضيافة والتنسيق الجمالي الراقي للأطباق والديكور',
+    categoryEn: 'Culinary Recipes & Fine Hospitality Styling',
+    platforms: [
+      { platform: 'instagram', url: 'https://www.instagram.com/cuisine_de_nadine_?igsh=ZWtqb3BwaW9zaXU5', count: '99K', isConfirmed: true }
+    ],
+    tags: ['Culinary', 'Food Styling', 'Refined Hospitality', '99K']
   },
   {
     id: 'amrs-kitchen',
@@ -141,9 +168,14 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     primaryLink: 'https://www.instagram.com/insideamrskitchen?igsh=MWg0a3lrcjdzdnM1',
     followers: '99K',
     isFollowerVerified: true,
-    categoryAr: 'فنون الطهي وتذوق الأطباق المميزة وجماليات التقديم',
-    categoryEn: 'Gourmet Cooking & Plating Focus',
-    tags: ['Instagram', 'Kitchen Craft', 'Food Styling']
+    roleAr: 'Gourmet Cooking & Plating • فنون الطهي وتذوق الأطباق',
+    roleEn: 'Gourmet Cooking & Plating Focus',
+    categoryAr: 'فنون الطهي وتذوق الأطباق المميزة وجماليات التقديم للمطاعم',
+    categoryEn: 'Gourmet Cooking & Artistic Plating Focus',
+    platforms: [
+      { platform: 'instagram', url: 'https://www.instagram.com/insideamrskitchen?igsh=MWg0a3lrcjdzdnM1', count: '99K', isConfirmed: true }
+    ],
+    tags: ['Kitchen Craft', 'Food Styling', 'Taste Testing', '99K']
   },
   {
     id: 'cairo-couple-craves',
@@ -155,65 +187,14 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     primaryLink: 'https://www.instagram.com/cairocouplecraves_?igsh=NzV1cTI4eHgxM28=',
     followers: '32K',
     isFollowerVerified: true,
-    categoryAr: 'أجواء عشاء ثنائية وأماكن رومانسية وتجارب كافيهات هادئة',
-    categoryEn: 'Couples Dining & Atmospheric Spots',
-    tags: ['Couples', 'Aesthetic', 'Date Nights']
-  },
-  {
-    id: 'el-exlance',
-    nameAr: 'الأكسلانس — El Akelans',
-    nameEn: 'El Exlance (El Akelans)',
-    handle: 'ELAkelans',
-    tier: 'mini',
-    platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/ELAkelans?mibextid=ZbWKwL',
-    followers: undefined,
-    isFollowerVerified: false,
-    categoryAr: 'أكلات شعبية وتجارب طعام مصرية وتغطيات مطاعم حية',
-    categoryEn: 'Authentic Egyptian Food Tours',
-    tags: ['Facebook', 'Street Food & Dining']
-  },
-  {
-    id: 'amr-ezzat',
-    nameAr: 'عمرو عزت',
-    nameEn: 'Amr Ezzat',
-    handle: 'AmrEzzat111',
-    tier: 'mini',
-    platform: 'facebook',
-    primaryLink: 'https://www.facebook.com/AmrEzzat111?mibextid=LQQJ4d',
-    followers: undefined,
-    isFollowerVerified: false,
-    categoryAr: 'تقييم مطاعم وزيارات ميدانية وتجارب ضيافة',
-    categoryEn: 'Restaurant Tasting & Outing Reviews',
-    tags: ['Facebook', 'Hospitality Reviews']
-  },
-  {
-    id: 'noha-shukry',
-    nameAr: 'نهى شكري',
-    nameEn: 'Nuha Shukry',
-    handle: '@nuha_shukry',
-    tier: 'mini',
-    platform: 'instagram',
-    primaryLink: 'https://www.instagram.com/nuha_shukry?igsh=MXBuczR3NTNpdzdj',
-    followers: undefined,
-    isFollowerVerified: false,
-    categoryAr: 'أسلوب حياة وأماكن راقية وضيافة عائلية',
-    categoryEn: 'Lifestyle & Refined Dining',
-    tags: ['Instagram', 'Lifestyle', 'Hospitality']
-  },
-  {
-    id: 'marwa-nagiib',
-    nameAr: 'مروة نجيب',
-    nameEn: 'Marwa Nagiib',
-    handle: '@marwa_najiib',
-    tier: 'mini',
-    platform: 'instagram',
-    primaryLink: 'https://www.instagram.com/marwa_najiib?igsh=enJzbXpiemx3aWF3',
-    followers: undefined,
-    isFollowerVerified: false,
-    categoryAr: 'محتوى نسائي وعائلي وتجارب مقاهي وتجمعات',
-    categoryEn: 'Family & Female Social Experiences',
-    tags: ['Instagram', 'Family Dining', 'Atmosphere']
+    roleAr: 'Couples Dining & Date Nights • تجارب عشاء ثنائية',
+    roleEn: 'Couples Dining & Atmospheric Spots',
+    categoryAr: 'أجواء عشاء ثنائية وأماكن رومانسية وتجارب كافيهات ومطاعم هادئة',
+    categoryEn: 'Couples Dining & Romantic Aesthetic Spots',
+    platforms: [
+      { platform: 'instagram', url: 'https://www.instagram.com/cairocouplecraves_?igsh=NzV1cTI4eHgxM28=', count: '32K', isConfirmed: true }
+    ],
+    tags: ['Couples Dining', 'Atmospheric Spots', 'Date Nights', '32K']
   },
   {
     id: 'dr-maya-szeizoun',
@@ -223,22 +204,109 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     tier: 'mini',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/dr.mayaszeizoun/',
-    followers: undefined,
-    isFollowerVerified: false,
-    categoryAr: 'نمط حياة راقٍ ووجهات سياحية وتجارب ضيافة متميزة',
-    categoryEn: 'Premium Lifestyle & Dining Spaces',
-    tags: ['Instagram', 'Fine Hospitality', 'Aesthetic']
+    followers: 'مرجع معتمد',
+    isFollowerVerified: true,
+    image: '/assets/influencers/maya.jpg',
+    roleAr: 'Premium Lifestyle & Spaces • نمط حياة راقٍ ووجهات ضيافة',
+    roleEn: 'Premium Lifestyle & Dining Spaces',
+    categoryAr: 'نمط حياة راقٍ ووجهات سياحية وتجارب ضيافة متميزة تناسب زوار الخليج',
+    categoryEn: 'Premium Lifestyle & Elegant Venue Experiences',
+    platforms: [
+      { platform: 'instagram', url: 'https://www.instagram.com/dr.mayaszeizoun/', count: 'Verified Profile', isConfirmed: true }
+    ],
+    tags: ['Premium Lifestyle', 'Fine Hospitality', 'GCC Friendly', 'Verified Photo']
+  }
+];
+
+export const MINI_CREATORS = MINI_INFLUENCERS_TOP4;
+
+// ============================================================================
+// 3. UGC CREATORS & EXTENDED ROSTER (LINKS-FIRST DIRECTORY)
+// ============================================================================
+export const UGC_CREATORS: CreatorCandidate[] = [
+  // Additional high-reach & local discovery candidates
+  {
+    id: 'akl-w-b7la2a',
+    nameAr: 'أكل وبحلقة',
+    nameEn: 'Akl w B7la2a',
+    handle: '@aklwba7la2a_',
+    tier: 'ugc',
+    platform: 'instagram',
+    primaryLink: 'https://www.instagram.com/aklwba7la2a_?igsh=MWMxeGZkNTBlMDByOQ==',
+    followers: '261K',
+    categoryAr: 'استكشاف أكلات وتجارب مطاعم جديدة وفلوجات طعام',
+    categoryEn: 'Food Exploration & Restaurant Vlogs',
+    tags: ['Instagram', 'Foodie Vlogs', '261K']
+  },
+  {
+    id: 'karim-effat',
+    nameAr: 'كريم عفت — KE Coach',
+    nameEn: 'Karim Effat (KEcoach)',
+    handle: 'KEcoach',
+    tier: 'ugc',
+    platform: 'facebook',
+    primaryLink: 'https://www.facebook.com/KEcoach?mibextid=LQQJ4d',
+    followers: '382K',
+    categoryAr: 'أسلوب حياة وصحة وتغذية وتجارب طعام اجتماعية',
+    categoryEn: 'Lifestyle, Nutrition & Food Choices',
+    tags: ['Facebook', 'Dining Out', '382K']
+  },
+  {
+    id: 'el-exlance',
+    nameAr: 'الأكسلانس — El Akelans',
+    nameEn: 'El Exlance (El Akelans)',
+    handle: 'ELAkelans',
+    tier: 'ugc',
+    platform: 'facebook',
+    primaryLink: 'https://www.facebook.com/ELAkelans?mibextid=ZbWKwL',
+    categoryAr: 'أكلات شعبية وتجارب طعام مصرية وتغطيات مطاعم حية',
+    categoryEn: 'Authentic Egyptian Food Tours',
+    tags: ['Facebook', 'Street Food & Dining']
+  },
+  {
+    id: 'amr-ezzat',
+    nameAr: 'عمرو عزت',
+    nameEn: 'Amr Ezzat',
+    handle: 'AmrEzzat111',
+    tier: 'ugc',
+    platform: 'facebook',
+    primaryLink: 'https://www.facebook.com/AmrEzzat111?mibextid=LQQJ4d',
+    categoryAr: 'تقييم مطاعم وزيارات ميدانية وتجارب ضيافة',
+    categoryEn: 'Restaurant Tasting & Outing Reviews',
+    tags: ['Facebook', 'Hospitality Reviews']
+  },
+  {
+    id: 'noha-shukry',
+    nameAr: 'نهى شكري',
+    nameEn: 'Nuha Shukry',
+    handle: '@nuha_shukry',
+    tier: 'ugc',
+    platform: 'instagram',
+    primaryLink: 'https://www.instagram.com/nuha_shukry?igsh=MXBuczR3NTNpdzdj',
+    categoryAr: 'أسلوب حياة وأماكن راقية وضيافة عائلية',
+    categoryEn: 'Lifestyle & Refined Dining',
+    tags: ['Instagram', 'Lifestyle', 'Hospitality']
+  },
+  {
+    id: 'marwa-nagiib',
+    nameAr: 'مروة نجيب',
+    nameEn: 'Marwa Nagiib',
+    handle: '@marwa_najiib',
+    tier: 'ugc',
+    platform: 'instagram',
+    primaryLink: 'https://www.instagram.com/marwa_najiib?igsh=enJzbXpiemx3aWF3',
+    categoryAr: 'محتوى نسائي وعائلي وتجارب مقاهي وتجمعات',
+    categoryEn: 'Family & Female Social Experiences',
+    tags: ['Instagram', 'Family Dining', 'Atmosphere']
   },
   {
     id: 'lolla-el-zamzamy',
     nameAr: 'لولا الزمزمي',
     nameEn: 'Lolla El Zamzamy',
     handle: '@lollaelzamzamy',
-    tier: 'mini',
+    tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@lollaelzamzamy?_t=ZS-8utWL5aMDdn&_r=1',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'يوميات وفيديوهات تجارب تفاعلية وخروجات ترفيهية',
     categoryEn: 'TikTok Vlogs & Food Experiences',
     tags: ['TikTok', 'Short-form', 'Trendy']
@@ -248,11 +316,9 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     nameAr: 'شيماء ومسعود',
     nameEn: 'Shimaa and Masoud',
     handle: '@shimaaandmasoud',
-    tier: 'mini',
+    tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@shimaaandmasoud',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'ثنائيات ومقاطع خفيفة وأماكن ترفيه وخروجات كافيهات',
     categoryEn: 'Couple Food Vlogs & Entertaining Spots',
     tags: ['TikTok', 'Couples', 'Viral']
@@ -262,21 +328,15 @@ export const MINI_CREATORS: CreatorCandidate[] = [
     nameAr: 'هبة فايد',
     nameEn: 'Heba Fayed',
     handle: '@heba.fayedd',
-    tier: 'mini',
+    tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/heba.fayedd?igsh=cnIwNDNod2RrcnJ6',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'محتوى جمال وتنسيق وجلسات مقاهي هادئة',
     categoryEn: 'Aesthetics, Coffee Spots & Leisure',
     tags: ['Instagram', 'Coffee Culture', 'Visuals']
-  }
-];
+  },
 
-// ============================================================================
-// 3. UGC CREATORS (Authentic Experiences, Short-Form Reels, Atmosphere & Food)
-// ============================================================================
-export const UGC_CREATORS: CreatorCandidate[] = [
+  // 32 UGC Dining Experience Creators
   {
     id: 'foodies-rs',
     nameAr: 'رنا — Foodies RS',
@@ -285,8 +345,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/foodiesrs?igsh=MXR0Y3RmeWM4NXFhMA',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'مراجعات مطاعم وتفاصيل أطباق وتصوير زوايا حية',
     categoryEn: 'Micro Foodie Reviews & Dish Spotlights',
     tags: ['Instagram', 'Foodie', 'UGC Experience']
@@ -299,8 +357,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/hoba.reviews/',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تقييم مطاعم وتجارب شخصية عفوية ومراجعة قائمة الطعام',
     categoryEn: 'Authentic Restaurant Reviews',
     tags: ['Instagram', 'Reviews', 'UGC Candidate']
@@ -313,8 +369,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/foodiedentists_noor/',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'استكشاف أماكن وتصوير أطعمة احترافي ولمسات تقديم',
     categoryEn: 'Food Exploration & Cafe Photography',
     tags: ['Instagram', 'Cafe Focus', 'Photography']
@@ -327,8 +381,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@basmmlaa?_r=1&_t=ZS-96LxAH4UOhN',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'فيديوهات قصيرة لأماكن التجمع والحلويات والمشروبات',
     categoryEn: 'TikTok Trends, Desserts & Outings',
     tags: ['TikTok', 'UGC Candidate', 'Trends']
@@ -341,8 +393,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@foodcai4?_r=1&_t=ZS-96LwVffjcyf',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'أماكن خروج القاهرة ومقاهي جديدة وتجارب شبابية',
     categoryEn: 'Cairo Outings & Fresh Cafe Spots',
     tags: ['TikTok', 'Cairo Vlogs', 'Gen Z']
@@ -355,8 +405,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@foodsbyb0?_r=1&_t=ZS-96LxFBBe7dp',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تجارب طعام ومشروبات منعشة وريلز تصويرية حية',
     categoryEn: 'Foodie Tastings & Beverage Reels',
     tags: ['TikTok', 'Beverages', 'UGC']
@@ -369,8 +417,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@lilianegamal',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'يوميات وفيديوهات خروجات شبابية وأجواء حيوية',
     categoryEn: 'Outings Vlogs & Youth Social Spots',
     tags: ['TikTok', 'Youth Outing', 'UGC']
@@ -383,8 +429,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@juryelmidany',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'مقاطع خفيفة واستكشاف كافيهات وتغطيات عفوية',
     categoryEn: 'Cafe Discovery & Casual Reels',
     tags: ['TikTok', 'Discovery', 'UGC']
@@ -397,8 +441,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@reviewsbysamasemo',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'مراجعات مفصلة وتجربة أطباق مميزة وجودة الخدمة',
     categoryEn: 'Detailed Tastings & Item Reviews',
     tags: ['TikTok', 'Food Review', 'UGC']
@@ -411,8 +453,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@radwakhaliidd',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'فيديوهات أجواء وموسيقى وتجمعات اجتماعية راقية',
     categoryEn: 'Atmospheric Video & Aesthetic Vibe',
     tags: ['TikTok', 'Atmosphere', 'UGC']
@@ -425,8 +465,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@suethereals',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'محتوى تجارب ومشروبات ومقاهي ذات طابع خاص',
     categoryEn: 'Lifestyle & Creative Outings',
     tags: ['TikTok', 'Cafe Culture', 'UGC']
@@ -439,8 +477,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/aammrr_jeeppccii?rpxt=bmpmdDJkaDdrOGQ=',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تجارب شبابية وأماكن غير تقليدية وخروجات جماعية',
     categoryEn: 'Youth Hangouts & Adventure Spots',
     tags: ['Instagram', 'Casual Outing']
@@ -453,8 +489,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@ser.el5alta',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'أسرار الوصفات ومكونات المطاعم وتفاصيل النكهات',
     categoryEn: 'Secret Recipes & Flavor Breakdowns',
     tags: ['TikTok', 'Culinary Secrets', 'Food Focus']
@@ -467,8 +501,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'tiktok',
     primaryLink: 'https://www.tiktok.com/@tokasalem3',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'خروجات بنات ومشروبات وأجواء مرحة',
     categoryEn: 'Girls Outings & Social Cafe Moments',
     tags: ['TikTok', 'Girls Hangouts', 'UGC']
@@ -481,8 +513,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/yomnasworld_?igsh=anZ3azg5dm90amNp',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'عائلات، جلسات دافئة وريلز تصويرية أنيقة',
     categoryEn: 'Cozy Family Spots & Aesthetic Reels',
     tags: ['Instagram', 'Family Focus', 'Cozy']
@@ -495,8 +525,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/tastebusterss?igsh=Y3NjbGlkYjA3M3Rx',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تقييم أطباق المطاعم ومذاقات جديدة ونقد بناء',
     categoryEn: 'Food Tasting & Creative Palates',
     tags: ['Instagram', 'Taste Testing', 'Foodie']
@@ -509,8 +537,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/moodk.fe.foodk?igsh=MThlbXN5d3c0bjc5',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'ربط المزاج بالأطباق والحلويات والمشروبات وتجارب كافيهات',
     categoryEn: 'Comfort Food, Desserts & Mood Pairings',
     tags: ['Instagram', 'Comfort Food', 'UGC']
@@ -523,8 +549,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/doublethetrouble_sm?igsh=MWwwcHpkdnZ2Y3U1Yg%3D%3D&utm_source=qr',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'ثنائيات وتجارب أطباق مشتركة وخروجات مميزة',
     categoryEn: 'Couples Food Vlogs & Dining Dates',
     tags: ['Instagram', 'Couples', 'UGC Candidate']
@@ -537,8 +561,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/lefwdo2?igsh=MW40aml6N28xNTdzZA==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'جولات تذوق وتجول بالمطاعم وسرد سريع',
     categoryEn: 'Street & Restaurant Tasting Tours',
     tags: ['Instagram', 'Tasting Tour', 'UGC']
@@ -551,8 +573,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/foodwiez?igsh=MXNsbzNtaDA2MmV2cw==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تصوير احترافي للأطباق والديكورات وجلسات الضيافة',
     categoryEn: 'Culinary Styling & Ambience Focus',
     tags: ['Instagram', 'Food Styling', 'Visual UGC']
@@ -565,8 +585,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/tokhy.1?igsh=MWoxOXlobWkyaHpweA==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'سرد قصصي شبابي وخروجات عفوية ومراجعة مشروبات',
     categoryEn: 'Youth Stories & Hangout Spots',
     tags: ['Instagram', 'Youth', 'Casual']
@@ -579,8 +597,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/foodiee.egy?igsh=MXR4Y2diazlpcGp5cw==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'استكشاف الأطباق الصاعدة والمقاهي الفريدة والجلسات الراقية',
     categoryEn: 'Rising Dishes & Unique Spots',
     tags: ['Instagram', 'Foodie Guide', 'UGC']
@@ -593,8 +609,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/karimovic.reviews?igsh=MW1kYWpjM2VyOHBhcg==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تقييم موضوعي ومفصل لقوائم الطعام وتجربة التقديم',
     categoryEn: 'Objective & Menu Analysis',
     tags: ['Instagram', 'Menu Reviews', 'UGC']
@@ -607,8 +621,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/kabeka.eats/',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'أكلات دسمة وتجارب وجبات مميزة وساندوتشات مبتكرة',
     categoryEn: 'Gourmet Bites & Rich Flavors',
     tags: ['Instagram', 'Comfort Food', 'UGC']
@@ -621,8 +633,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/ayaaadel___?igsh=bWF2eG15aXIycDMw',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'جلسات تصوير أنيقة وأجواء هادئة وتفاصيل الديكور',
     categoryEn: 'Elegant Photo Spots & Chill Vibes',
     tags: ['Instagram', 'Photo Corner Focus', 'UGC']
@@ -635,8 +645,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/esraasobhhy?igsh=MTliMHR5MDJmbXFheA==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'محتوى نسائي وجمال وتجارب قهوة وأماكن استرخاء',
     categoryEn: 'Women Lifestyle & Coffee Aesthetics',
     tags: ['Instagram', 'Coffee Lover', 'UGC']
@@ -649,8 +657,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/thehungrygirll?igsh=MWxremR3djlvc3RncA==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'أطباق مبتكرة وحلويات ومطاعم جديدة وتجارب عشاء',
     categoryEn: 'Signature Treats & Desserts',
     tags: ['Instagram', 'Signature Dishes', 'UGC']
@@ -663,8 +669,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/stuffedddd.ayad/',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'سندوتشات وأطباق محشوة وتجارب مبتكرة ووجبات سريعة',
     categoryEn: 'Sandwiches & Loaded Specialties',
     tags: ['Instagram', 'Bites & Sandwiches', 'UGC']
@@ -677,8 +681,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/engyyabdo?psln=a3o1c2lxejNtN3I0',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'أجواء عائلية وتنسيق طاولات وضيافة وأطباق تقليدية',
     categoryEn: 'Table Setup, Hospitality & Family Dining',
     tags: ['Instagram', 'Hospitality', 'UGC']
@@ -691,8 +693,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/daywithwell?rpxt=MXgwbXgyMnI4Y2g3cg==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'يوميات وفلوجات استكشاف أماكن حصرية ومقاهي ومطاعم',
     categoryEn: 'Vlog Adventures & Venue Spotlights',
     tags: ['Instagram', 'Venue Vlogs', 'UGC']
@@ -705,8 +705,6 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/mesh.reviewers?cplk=bXZpN3hqbGpjdmdl',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'تقييمات واقعية غير تقليدية وتجارب غير مدفوعة وصريحة',
     categoryEn: 'Unfiltered Impressions & Real Consumer View',
     tags: ['Instagram', 'Raw Feedback', 'Authentic UGC']
@@ -719,17 +717,14 @@ export const UGC_CREATORS: CreatorCandidate[] = [
     tier: 'ugc',
     platform: 'instagram',
     primaryLink: 'https://www.instagram.com/mahmoudd.zizo?rpxt=MTRuMWlyNmRseWhvdg==',
-    followers: undefined,
-    isFollowerVerified: false,
     categoryAr: 'مقاطع شبابية وتجمعات اجتماعية وخروجات ليلية',
     categoryEn: 'Social Gatherings & Youth Energy',
     tags: ['Instagram', 'Social Nights Focus', 'UGC']
   }
 ];
 
-// Unified complete list preserving all candidates
 export const CREATORS_LIST: CreatorCandidate[] = [
-  ...MEGA_CREATORS,
-  ...MINI_CREATORS,
+  ...MEGA_INFLUENCERS_TOP4,
+  ...MINI_INFLUENCERS_TOP4,
   ...UGC_CREATORS
 ];

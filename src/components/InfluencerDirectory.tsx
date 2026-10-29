@@ -1,20 +1,24 @@
 import React, { useState, useMemo } from 'react';
-import { Language, CreatorCandidate, CreatorTier, CreatorPlatform } from '../types';
+import { Language, CreatorCandidate, CreatorPlatform } from '../types';
 import { CONTENT } from '../data/content';
-import { PRIORITY_CREATOR, MEGA_CREATORS, MINI_CREATORS, UGC_CREATORS, CREATORS_LIST } from '../data/influencers';
+import {
+  PRIORITY_CREATOR,
+  MEGA_INFLUENCERS_TOP4,
+  MINI_INFLUENCERS_TOP4,
+  UGC_CREATORS
+} from '../data/influencers';
 import {
   Sparkles,
   ExternalLink,
   Users,
-  Filter,
-  CheckCircle2,
   Star,
-  Award,
   Search,
   TrendingUp,
   Camera,
   HeartHandshake,
-  Info
+  Info,
+  Layers,
+  ArrowUpRight
 } from 'lucide-react';
 
 interface InfluencerDirectoryProps {
@@ -40,43 +44,17 @@ const TikTokIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   </svg>
 );
 
+const YouTubeIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+
 export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }) => {
   const t = CONTENT[lang].influencers;
-  const [activeTier, setActiveTier] = useState<'all' | 'mega' | 'mini' | 'ugc'>('all');
-  const [activePlatform, setActivePlatform] = useState<'all' | CreatorPlatform>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Actual counts based on true categorized data
-  const counts = useMemo(() => ({
-    all: CREATORS_LIST.length,
-    mega: MEGA_CREATORS.length,
-    mini: MINI_CREATORS.length,
-    ugc: UGC_CREATORS.length
-  }), []);
-
-  // Filter creator candidates
-  const filteredCreators = useMemo(() => {
-    return CREATORS_LIST.filter((creator) => {
-      // Tier filter
-      if (activeTier === 'mega' && creator.tier !== 'mega') return false;
-      if (activeTier === 'mini' && creator.tier !== 'mini') return false;
-      if (activeTier === 'ugc' && creator.tier !== 'ugc') return false;
-
-      // Platform filter
-      if (activePlatform !== 'all' && creator.platform !== activePlatform) return false;
-
-      // Search query filter (name, handle, category)
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const matchName = creator.nameAr.toLowerCase().includes(q) || creator.nameEn.toLowerCase().includes(q);
-        const matchHandle = creator.handle.toLowerCase().includes(q);
-        const matchCategory = creator.categoryAr.toLowerCase().includes(q) || creator.categoryEn.toLowerCase().includes(q);
-        if (!matchName && !matchHandle && !matchCategory) return false;
-      }
-
-      return true;
-    });
-  }, [activeTier, activePlatform, searchQuery]);
+  const [activeTab, setActiveTab] = useState<'all' | 'mega' | 'mini' | 'ugc'>('all');
+  const [ugcSearchQuery, setUgcSearchQuery] = useState('');
+  const [ugcPlatformFilter, setUgcPlatformFilter] = useState<'all' | CreatorPlatform>('all');
 
   const getPlatformIcon = (platform: CreatorPlatform, size = "w-4 h-4") => {
     switch (platform) {
@@ -86,6 +64,8 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
         return <FacebookIcon className={`${size} text-[#1877F2]`} />;
       case 'tiktok':
         return <TikTokIcon className={`${size} text-[#000000]`} />;
+      case 'youtube':
+        return <YouTubeIcon className={`${size} text-[#FF0000]`} />;
     }
   };
 
@@ -97,15 +77,30 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
     return name.slice(0, 2).toUpperCase();
   };
 
+  // Filtered UGC creators list
+  const filteredUgcCreators = useMemo(() => {
+    return UGC_CREATORS.filter((creator) => {
+      if (ugcPlatformFilter !== 'all' && creator.platform !== ugcPlatformFilter) return false;
+      if (ugcSearchQuery.trim()) {
+        const q = ugcSearchQuery.toLowerCase().trim();
+        const matchName = creator.nameAr.toLowerCase().includes(q) || creator.nameEn.toLowerCase().includes(q);
+        const matchHandle = creator.handle.toLowerCase().includes(q);
+        const matchCat = creator.categoryAr.toLowerCase().includes(q) || creator.categoryEn.toLowerCase().includes(q);
+        if (!matchName && !matchHandle && !matchCat) return false;
+      }
+      return true;
+    });
+  }, [ugcSearchQuery, ugcPlatformFilter]);
+
   return (
     <section id="influencer-directory" className="py-20 sm:py-28 bg-[#faf8f5] text-[#1a202c] relative border-t border-[#e8e0d5]">
       {/* Decorative Floral Watercolor Aura */}
-      <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-gradient-to-bl from-[#c5384a]/5 via-[#c49348]/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-10 left-0 w-[450px] h-[450px] bg-gradient-to-tr from-[#326084]/5 via-[#8e799f]/5 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-[#c5384a]/6 via-[#c49348]/6 to-transparent rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#326084]/6 via-[#8e799f]/6 to-transparent rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header */}
+        {/* Main Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c5384a]/10 border border-[#c5384a]/20 text-xs font-bold text-[#c5384a] uppercase tracking-wider mb-4">
             <Users className="w-3.5 h-3.5" />
@@ -120,334 +115,492 @@ export const InfluencerDirectory: React.FC<InfluencerDirectoryProps> = ({ lang }
             {t.subtitle}
           </p>
 
-          <div className="inline-flex items-start gap-2 text-xs text-[#713f12] bg-[#fefce8] p-3.5 rounded-xl border border-[#fef08a] max-w-2xl mx-auto text-start rtl:text-right shadow-sm">
+          <div className="inline-flex items-start gap-2.5 text-xs text-[#713f12] bg-[#fefce8] p-4 rounded-xl border border-[#fef08a] max-w-2xl mx-auto text-start rtl:text-right shadow-sm">
             <Info className="w-4 h-4 text-[#ca8a04] flex-shrink-0 mt-0.5" />
-            <span>{t.disclaimer}</span>
+            <p className="leading-relaxed font-medium">{t.disclaimer}</p>
           </div>
         </div>
 
+        {/* Section Navigation Quick Tabs */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-12 sm:mb-14">
+          <button
+            onClick={() => setActiveTab('all')}
+            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 ${
+              activeTab === 'all'
+                ? 'bg-[#1a202c] text-white shadow-md'
+                : 'bg-white border border-[#e8e0d5] text-[#475569] hover:bg-[#f5f0e8]'
+            }`}
+          >
+            {t.tabs.all}
+          </button>
+          <button
+            onClick={() => setActiveTab('mega')}
+            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-2 ${
+              activeTab === 'mega'
+                ? 'bg-[#c5384a] text-white shadow-md shadow-[#c5384a]/20'
+                : 'bg-white border border-[#e8e0d5] text-[#c5384a] hover:bg-[#fdf2f4]'
+            }`}
+          >
+            <TrendingUp className="w-3.5 h-3.5" />
+            <span>{t.tabs.mega}</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('mini')}
+            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-2 ${
+              activeTab === 'mini'
+                ? 'bg-[#326084] text-white shadow-md shadow-blue-800/20'
+                : 'bg-white border border-[#e8e0d5] text-[#326084] hover:bg-[#eef5fa]'
+            }`}
+          >
+            <HeartHandshake className="w-3.5 h-3.5" />
+            <span>{t.tabs.mini}</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('ugc')}
+            className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-2 ${
+              activeTab === 'ugc'
+                ? 'bg-[#c49348] text-white shadow-md shadow-amber-700/20'
+                : 'bg-white border border-[#e8e0d5] text-[#b45309] hover:bg-[#fdf7ee]'
+            }`}
+          >
+            <Camera className="w-3.5 h-3.5" />
+            <span>{t.tabs.ugc} ({UGC_CREATORS.length})</span>
+          </button>
+        </div>
+
         {/* ============================================================== */}
-        {/* PRIORITY PLACEMENT CARD — EL ZUZZAT (TOP OF DIRECTORY)         */}
+        {/* 0. PRIORITY CANDIDATE — EL ZUZZAT (TOP FEATURED CARD)           */}
         {/* ============================================================== */}
-        <div className="mb-14 sm:mb-16">
-          <div className="relative p-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#c5384a] via-[#c49348] to-[#326084] shadow-xl">
-            <div className="bg-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8">
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                
-                <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 text-center sm:text-left rtl:sm:text-right">
-                  {/* Priority Avatar with Official Uploaded Image */}
-                  <div className="relative flex-shrink-0">
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#c5384a]/35 shadow-lg shadow-[#c5384a]/20 bg-[#f5f0e8] flex items-center justify-center">
-                      <img
-                        src={PRIORITY_CREATOR.image || "/assets/influencers/el-zuzzat.jpg"}
-                        alt={lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
-                        className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
-                        loading="eager"
-                      />
-                    </div>
-                    <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#c49348] text-white flex items-center justify-center text-xs shadow-md border-2 border-white" title="Top Priority Candidate">
-                      <Star className="w-3.5 h-3.5 fill-white" />
-                    </span>
-                  </div>
-
-                  <div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#c5384a]/10 text-[#c5384a] border border-[#c5384a]/20 mb-2">
-                      <Star className="w-3.5 h-3.5 fill-[#c5384a]" />
-                      <span>{t.priorityBadge}</span>
-                    </div>
-
-                    <h3 className="text-xl sm:text-3xl font-black text-[#1a202c]">
-                      {lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
-                    </h3>
-                    
-                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-1">
-                      <span className="text-xs sm:text-sm text-[#64748b] font-mono font-medium">
-                        {PRIORITY_CREATOR.handle}
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#c49348]/15 text-[#92400e] border border-[#c49348]/30">
-                        {PRIORITY_CREATOR.followers}
+        {(activeTab === 'all' || activeTab === 'mega') && (
+          <div className="mb-16 sm:mb-20">
+            <div className="relative p-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#c5384a] via-[#c49348] to-[#326084] shadow-xl">
+              <div className="bg-white rounded-[14px] sm:rounded-[22px] p-6 sm:p-8">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                  
+                  <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-6 text-center sm:text-left rtl:sm:text-right">
+                    {/* Priority Photo with Verified Local Image */}
+                    <div className="relative flex-shrink-0">
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-2xl overflow-hidden border-2 border-[#c5384a]/35 shadow-lg shadow-[#c5384a]/20 bg-[#f5f0e8] flex items-center justify-center">
+                        <img
+                          src={PRIORITY_CREATOR.image || "/assets/influencers/el-zuzzat.jpg"}
+                          alt={lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
+                          className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
+                          loading="eager"
+                        />
+                      </div>
+                      <span className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#c49348] text-white flex items-center justify-center text-xs shadow-md border-2 border-white" title="Top Priority Candidate">
+                        <Star className="w-3.5 h-3.5 fill-white" />
                       </span>
                     </div>
 
-                    <p className="text-xs sm:text-sm text-[#475569] mt-2.5 max-w-xl leading-relaxed">
-                      {lang === 'ar' ? PRIORITY_CREATOR.notesAr : PRIORITY_CREATOR.notesEn}
-                    </p>
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-[#c5384a]/10 text-[#c5384a] border border-[#c5384a]/20 mb-2">
+                        <Star className="w-3.5 h-3.5 fill-[#c5384a]" />
+                        <span>{t.priorityBadge}</span>
+                      </div>
 
-                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-3.5">
-                      {PRIORITY_CREATOR.tags.map((tag, i) => (
-                        <span key={i} className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#f5f0e8] text-[#334155] border border-[#e8e0d5]">
-                          {tag}
+                      <h3 className="text-xl sm:text-3xl font-black text-[#1a202c]">
+                        {lang === 'ar' ? PRIORITY_CREATOR.nameAr : PRIORITY_CREATOR.nameEn}
+                      </h3>
+                      
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mt-1">
+                        <span className="text-xs sm:text-sm text-[#64748b] font-mono font-medium">
+                          {PRIORITY_CREATOR.handle}
                         </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Priority Functional Direct Links — 44px Touch Targets */}
-                <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-                  <a
-                    href={PRIORITY_CREATOR.primaryLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#c5384a] to-[#d95a6c] hover:from-[#b02a3a] hover:to-[#c5384a] shadow-md shadow-[#c5384a]/25 transition-all active:scale-95"
-                  >
-                    <InstagramIcon className="w-4 h-4 text-white" />
-                    <span>Instagram Profile</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-
-                  {PRIORITY_CREATOR.secondaryLink && (
-                    <a
-                      href={PRIORITY_CREATOR.secondaryLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#1877F2] hover:bg-[#166fe5] shadow-md shadow-blue-600/20 transition-all active:scale-95"
-                    >
-                      <FacebookIcon className="w-4 h-4 text-white" />
-                      <span>Facebook Profile</span>
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  )}
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ============================================================== */}
-        {/* DIRECTORY FILTERS & CONTROLS                                    */}
-        {/* ============================================================== */}
-        <div className="mb-8 sm:mb-10 p-4 sm:p-5 rounded-2xl bg-white border border-[#e8e0d5] shadow-sm flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-          
-          {/* 3 Categories + All Tabs */}
-          <div className="flex flex-wrap items-center gap-2">
-            {/* ALL */}
-            <button
-              onClick={() => setActiveTier('all')}
-              className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 ${
-                activeTier === 'all'
-                  ? 'bg-[#1a202c] text-white shadow-md'
-                  : 'bg-[#f5f0e8] text-[#475569] hover:bg-[#e8e0d5]'
-              }`}
-            >
-              {t.tabs.all} ({counts.all})
-            </button>
-
-            {/* MEGA */}
-            <button
-              onClick={() => setActiveTier('mega')}
-              className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
-                activeTier === 'mega'
-                  ? 'bg-[#c5384a] text-white shadow-md shadow-[#c5384a]/25'
-                  : 'bg-[#fdf2f4] text-[#c5384a] hover:bg-[#fbdde1]'
-              }`}
-            >
-              <TrendingUp className="w-3.5 h-3.5" />
-              <span>{t.tabs.mega}</span>
-              <span className={`text-[11px] px-1.5 py-0.2 rounded-full ${activeTier === 'mega' ? 'bg-white/20' : 'bg-[#c5384a]/10'}`}>
-                {counts.mega}
-              </span>
-            </button>
-
-            {/* MINI */}
-            <button
-              onClick={() => setActiveTier('mini')}
-              className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
-                activeTier === 'mini'
-                  ? 'bg-[#326084] text-white shadow-md shadow-blue-800/20'
-                  : 'bg-[#eef5fa] text-[#326084] hover:bg-[#dce9f2]'
-              }`}
-            >
-              <HeartHandshake className="w-3.5 h-3.5" />
-              <span>{t.tabs.mini}</span>
-              <span className={`text-[11px] px-1.5 py-0.2 rounded-full ${activeTier === 'mini' ? 'bg-white/20' : 'bg-[#326084]/10'}`}>
-                {counts.mini}
-              </span>
-            </button>
-
-            {/* UGC */}
-            <button
-              onClick={() => setActiveTier('ugc')}
-              className={`min-h-[44px] px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
-                activeTier === 'ugc'
-                  ? 'bg-[#c49348] text-white shadow-md shadow-amber-600/20'
-                  : 'bg-[#fdf7ee] text-[#b45309] hover:bg-[#f7ebd4]'
-              }`}
-            >
-              <Camera className="w-3.5 h-3.5" />
-              <span>{t.tabs.ugc}</span>
-              <span className={`text-[11px] px-1.5 py-0.2 rounded-full ${activeTier === 'ugc' ? 'bg-white/20' : 'bg-[#c49348]/15'}`}>
-                {counts.ugc}
-              </span>
-            </button>
-          </div>
-
-          {/* Search + Platform Filter */}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
-            {/* Search Input */}
-            <div className="relative flex-1 sm:w-60">
-              <Search className="w-4 h-4 text-[#94a3b8] absolute start-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder={t.filters.searchPlaceholder}
-                className="w-full min-h-[44px] ps-9 pe-3 py-2 rounded-xl text-xs bg-[#f5f0e8] border border-[#e8e0d5] text-[#1a202c] placeholder:text-[#94a3b8] focus:outline-none focus:border-[#c5384a] focus:bg-white transition-colors"
-              />
-            </div>
-
-            {/* Platform Filter */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-1 sm:pb-0">
-              {(['all', 'instagram', 'facebook', 'tiktok'] as const).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setActivePlatform(p)}
-                  className={`min-h-[44px] px-3 py-1.5 rounded-xl text-xs font-semibold transition-all active:scale-95 flex-shrink-0 flex items-center gap-1.5 ${
-                    activePlatform === p
-                      ? 'bg-[#1a202c] text-white font-bold'
-                      : 'bg-[#f5f0e8] text-[#475569] hover:bg-[#e8e0d5]'
-                  }`}
-                >
-                  {p !== 'all' && getPlatformIcon(p, "w-3.5 h-3.5")}
-                  <span>{p === 'all' ? t.filters.allPlatforms : p.charAt(0).toUpperCase() + p.slice(1)}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
-        {/* ============================================================== */}
-        {/* CREATORS CARDS GRID                                            */}
-        {/* ============================================================== */}
-        {filteredCreators.length === 0 ? (
-          <div className="p-12 text-center rounded-2xl bg-white border border-[#e8e0d5] shadow-sm">
-            <Users className="w-12 h-12 text-[#94a3b8] mx-auto mb-3" />
-            <h4 className="text-base font-bold text-[#1a202c] mb-1">
-              {lang === 'ar' ? 'لا توجد نتائج مطابقة' : 'No matching creators found'}
-            </h4>
-            <p className="text-xs text-[#64748b]">
-              {lang === 'ar' ? 'يرجى تجربة فلتر آخر أو كلمة بحث مختلفة' : 'Try adjusting your filters or search term'}
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
-            {filteredCreators.map((creator) => {
-              const initials = getInitials(creator.nameEn);
-              const isMega = creator.tier === 'mega';
-              const isMini = creator.tier === 'mini';
-              const isUgc = creator.tier === 'ugc';
-
-              // Visual styling per category
-              const tierBadge = isMega
-                ? { label: 'MEGA', bg: 'bg-[#fdf2f4]', text: 'text-[#c5384a]', border: 'border-[#fbdde1]', avatar: 'from-[#c5384a] to-[#7d1d32]' }
-                : isMini
-                ? { label: 'MINI', bg: 'bg-[#eef5fa]', text: 'text-[#326084]', border: 'border-[#dce9f2]', avatar: 'from-[#326084] to-[#1b2a3a]' }
-                : { label: 'UGC', bg: 'bg-[#fdf7ee]', text: 'text-[#b45309]', border: 'border-[#f7ebd4]', avatar: 'from-[#c49348] to-[#92400e]' };
-
-              return (
-                <div
-                  key={creator.id}
-                  className="p-5 rounded-2xl bg-white border border-[#e8e0d5] hover:border-[#c5384a]/40 hover:shadow-wardah-card transition-all duration-200 flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Top Bar: Platform & Tier Badge */}
-                    <div className="flex items-center justify-between gap-2 mb-3.5">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#faf8f5] text-[#475569] border border-[#e8e0d5]">
-                        {getPlatformIcon(creator.platform)}
-                        <span className="capitalize">{creator.platform}</span>
-                      </span>
-
-                      <span
-                        className={`text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border ${tierBadge.bg} ${tierBadge.text} ${tierBadge.border}`}
-                      >
-                        {tierBadge.label}
-                      </span>
-                    </div>
-
-                    {/* Creator Identity with Initial Avatar */}
-                    <div className="flex items-center gap-3 mb-3">
-                      <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-extrabold text-sm shadow-sm flex-shrink-0 bg-gradient-to-br ${tierBadge.avatar}`}
-                      >
-                        {initials}
+                        <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#c49348]/15 text-[#92400e] border border-[#c49348]/30">
+                          {PRIORITY_CREATOR.followers}
+                        </span>
                       </div>
 
-                      <div className="overflow-hidden">
-                        <h4 className="text-sm font-bold text-[#1a202c] group-hover:text-[#c5384a] transition-colors truncate">
-                          {lang === 'ar' ? creator.nameAr : creator.nameEn}
-                        </h4>
-                        <p className="text-xs text-[#64748b] font-mono truncate">{creator.handle}</p>
+                      <p className="text-xs sm:text-sm text-[#475569] mt-2.5 max-w-xl leading-relaxed">
+                        {lang === 'ar' ? PRIORITY_CREATOR.notesAr : PRIORITY_CREATOR.notesEn}
+                      </p>
+
+                      <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 sm:gap-2 mt-3.5">
+                        {PRIORITY_CREATOR.tags.map((tag, i) => (
+                          <span key={i} className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-[#f5f0e8] text-[#334155] border border-[#e8e0d5]">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-
-                    {/* Follower Count Card Display */}
-                    <div className="mb-3">
-                      {creator.followers ? (
-                        <div className="px-3 py-1.5 rounded-xl bg-[#fdf2f4] border border-[#fbdde1] flex items-center justify-between">
-                          <span className="text-[11px] font-medium text-[#c5384a]">
-                            {t.card.userProvidedFollowers}
-                          </span>
-                          <span className="text-xs font-extrabold text-[#7d1d32] font-mono">
-                            {creator.followers}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="px-3 py-1.5 rounded-xl bg-[#f5f0e8] border border-[#e8e0d5] flex items-center justify-between">
-                          <span className="text-[11px] text-[#64748b]">
-                            {t.card.unverifiedLabel}
-                          </span>
-                          <span className="text-[10px] font-semibold text-[#94a3b8]">
-                            Audit Req.
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Category Description */}
-                    <p className="text-xs text-[#475569] mb-4 line-clamp-2 leading-relaxed font-normal">
-                      {lang === 'ar' ? creator.categoryAr : creator.categoryEn}
-                    </p>
                   </div>
 
-                  {/* Profile Action Link — 44px Touch Target */}
-                  <div className="pt-3 border-t border-[#f0ebe3] flex items-center justify-between gap-2">
+                  {/* Priority Functional Direct Links — 44px Touch Targets */}
+                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
                     <a
-                      href={creator.primaryLink}
+                      href={PRIORITY_CREATOR.primaryLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full min-h-[44px] inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold text-[#1a202c] bg-[#f5f0e8] hover:bg-[#c5384a] hover:text-white transition-all active:scale-95"
+                      className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#c5384a] to-[#d95a6c] hover:from-[#b02a3a] hover:to-[#c5384a] shadow-md shadow-[#c5384a]/25 transition-all active:scale-95"
                     >
-                      <span>{t.card.viewProfile}</span>
+                      <InstagramIcon className="w-4 h-4 text-white" />
+                      <span>Instagram Profile</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
 
-                    {creator.secondaryLink && (
+                    {PRIORITY_CREATOR.secondaryLink && (
                       <a
-                        href={creator.secondaryLink}
+                        href={PRIORITY_CREATOR.secondaryLink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        title={lang === 'ar' ? 'رابط المنصة الإضافية' : 'Secondary Platform Link'}
-                        className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-[#f5f0e8] hover:bg-[#e8e0d5] text-[#475569] transition-colors active:scale-95"
+                        className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-white bg-[#1877F2] hover:bg-[#166fe5] shadow-md shadow-blue-600/20 transition-all active:scale-95"
                       >
-                        {creator.secondaryPlatform ? getPlatformIcon(creator.secondaryPlatform) : <ExternalLink className="w-3.5 h-3.5" />}
+                        <FacebookIcon className="w-4 h-4 text-white" />
+                        <span>Facebook Profile</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
                       </a>
                     )}
                   </div>
 
                 </div>
-              );
-            })}
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Footer Note regarding follower numbers & real profile photos */}
-        <div className="mt-12 text-center">
-          <p className="text-xs text-[#64748b] bg-white p-4 rounded-xl border border-[#e8e0d5] inline-block shadow-sm">
-            {t.card.followerNote} • {lang === 'ar' ? 'الصور الشخصية مُصممة بنظام الرموز المعتمدة، وتُتاح الروابط الرسمية المباشرة لكل حساب للمعاينة الفورية.' : 'Avatars displayed via verified monogram badges; all cards contain direct clickable links to official profiles for live verification.'}
-          </p>
-        </div>
+        {/* ============================================================== */}
+        {/* 1. MEGA INFLUENCERS — EXACTLY FOUR (PREMIUM EDITORIAL CARDS)     */}
+        {/* ============================================================== */}
+        {(activeTab === 'all' || activeTab === 'mega') && (
+          <div className="mb-20 sm:mb-24">
+            {/* Section Header */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
+              <div>
+                <span className="text-xs font-black text-[#c5384a] tracking-widest uppercase block mb-1">
+                  01 • TIER ONE SELECTION
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
+                  {t.sections.megaTitle}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
+                  {t.sections.megaSubtitle}
+                </p>
+              </div>
+              <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#c5384a]/10 text-[#c5384a] border border-[#c5384a]/20">
+                4 Key Candidates
+              </span>
+            </div>
+
+            {/* 4 Premium Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {MEGA_INFLUENCERS_TOP4.map((creator, index) => {
+                const orderNum = `0${index + 1}`;
+                return (
+                  <div
+                    key={creator.id}
+                    className="p-6 rounded-3xl bg-white border border-[#e8e0d5] hover:border-[#c5384a]/50 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between group shadow-sm relative overflow-hidden"
+                  >
+                    {/* Top Order Badge & Platform Pill */}
+                    <div>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="w-8 h-8 rounded-xl bg-[#c5384a]/10 text-[#c5384a] font-black text-xs flex items-center justify-center font-mono">
+                          {orderNum}
+                        </span>
+                        <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#faf8f5] text-[#334155] border border-[#e8e0d5]">
+                          {creator.roleAr?.split('•')[0] || 'Mega Influencer'}
+                        </span>
+                      </div>
+
+                      {/* Photo Container */}
+                      <div className="relative mb-5 rounded-2xl overflow-hidden aspect-[4/4] bg-[#f5f0e8] border border-[#e8e0d5] shadow-xs group-hover:border-[#c5384a]/30 transition-colors">
+                        <img
+                          src={creator.image}
+                          alt={lang === 'ar' ? creator.nameAr : creator.nameEn}
+                          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      </div>
+
+                      {/* Creator Details */}
+                      <div className="mb-4">
+                        <h4 className="text-base sm:text-lg font-black text-[#1a202c] group-hover:text-[#c5384a] transition-colors leading-snug">
+                          {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                        </h4>
+                        <p className="text-xs text-[#64748b] font-mono mt-0.5">
+                          {creator.handle}
+                        </p>
+                        <p className="text-xs text-[#475569] mt-2 line-clamp-2 leading-relaxed">
+                          {lang === 'ar' ? creator.categoryAr : creator.categoryEn}
+                        </p>
+                      </div>
+
+                      {/* Prominent Combined Audience Banner */}
+                      <div className="mb-4 p-3.5 rounded-2xl bg-gradient-to-br from-[#fdf2f4] to-[#fbf0f2] border border-[#fbdde1]">
+                        <span className="text-[10px] font-bold text-[#c5384a] uppercase tracking-wider block mb-0.5">
+                          {t.combinedAudienceLabel}
+                        </span>
+                        <div className="text-xl sm:text-2xl font-black text-[#7d1d32] font-mono tracking-tight">
+                          {creator.combinedAudience}
+                        </div>
+                        <span className="text-[10px] text-[#9a3412] mt-0.5 block leading-tight">
+                          {lang === 'ar' ? creator.combinedAudienceNoteAr : creator.combinedAudienceNoteEn}
+                        </span>
+                      </div>
+
+                      {/* Platform-by-Platform Breakdown (Interactive clickable chips) */}
+                      <div className="mb-4">
+                        <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-wider block mb-2">
+                          {lang === 'ar' ? 'تفصيل المنصات الرسمية:' : 'Platform Breakdown:'}
+                        </span>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          {creator.platforms?.map((p, idx) => (
+                            <a
+                              key={idx}
+                              href={p.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              title={`${p.platform}: ${p.count}`}
+                              className="px-2 py-1.5 rounded-lg bg-[#faf8f5] hover:bg-[#f5f0e8] border border-[#e8e0d5] flex items-center justify-between text-[11px] group/chip transition-colors"
+                            >
+                              <div className="flex items-center gap-1.5 overflow-hidden">
+                                {getPlatformIcon(p.platform, "w-3 h-3 flex-shrink-0")}
+                                <span className="capitalize text-[#475569] font-medium truncate text-[10px]">
+                                  {p.platform}
+                                </span>
+                              </div>
+                              <span className="font-bold text-[#1a202c] text-[10px] font-mono">
+                                {p.count}
+                              </span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Primary Direct Link Action */}
+                    <div className="pt-3 border-t border-[#f0ebe3]">
+                      <a
+                        href={creator.primaryLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full min-h-[44px] inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white bg-[#1a202c] hover:bg-[#c5384a] transition-all duration-200 active:scale-95 shadow-sm"
+                      >
+                        <span>{t.card.viewProfile}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Combined Audience Discreet Note */}
+            <div className="mt-6 text-center">
+              <p className="text-[11px] text-[#64748b] bg-white px-4 py-2.5 rounded-xl border border-[#e8e0d5] inline-block shadow-xs">
+                {t.combinedAudienceNote}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* 2. MINI INFLUENCERS — EXACTLY FOUR (COMPACT FOCUSED CARDS)       */}
+        {/* ============================================================== */}
+        {(activeTab === 'all' || activeTab === 'mini') && (
+          <div className="mb-20 sm:mb-24">
+            {/* Section Header */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
+              <div>
+                <span className="text-xs font-black text-[#326084] tracking-widest uppercase block mb-1">
+                  02 • HIGH-AFFINITY SELECTION
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
+                  {t.sections.miniTitle}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
+                  {t.sections.miniSubtitle}
+                </p>
+              </div>
+              <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#326084]/10 text-[#326084] border border-[#326084]/20">
+                4 Focused Creators
+              </span>
+            </div>
+
+            {/* 4 Compact Editorial Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {MINI_INFLUENCERS_TOP4.map((creator, index) => {
+                const orderNum = `0${index + 1}`;
+                const initials = getInitials(creator.nameEn);
+                return (
+                  <div
+                    key={creator.id}
+                    className="p-5 rounded-2xl bg-white border border-[#e8e0d5] hover:border-[#326084]/50 hover:shadow-wardah-card transition-all duration-300 flex flex-col justify-between group shadow-sm"
+                  >
+                    <div>
+                      {/* Top Bar */}
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="w-7 h-7 rounded-lg bg-[#326084]/10 text-[#326084] font-black text-xs flex items-center justify-center font-mono">
+                          {orderNum}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#eef5fa] text-[#326084] border border-[#dce9f2]">
+                          {getPlatformIcon(creator.platform, "w-3 h-3")}
+                          <span>{creator.followers}</span>
+                        </span>
+                      </div>
+
+                      {/* Photo or Monogram */}
+                      <div className="mb-4">
+                        {creator.image ? (
+                          <div className="w-16 h-16 rounded-2xl overflow-hidden border border-[#e8e0d5] shadow-xs mb-3">
+                            <img
+                              src={creator.image}
+                              alt={lang === 'ar' ? creator.nameAr : creator.nameEn}
+                              className="w-full h-full object-cover object-top"
+                              loading="lazy"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#326084] to-[#1b2a3a] text-white font-extrabold text-base flex items-center justify-center shadow-xs mb-3">
+                            {initials}
+                          </div>
+                        )}
+
+                        <h4 className="text-base font-bold text-[#1a202c] group-hover:text-[#326084] transition-colors leading-snug">
+                          {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                        </h4>
+                        <p className="text-xs text-[#64748b] font-mono mt-0.5">
+                          {creator.handle}
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-[#475569] mb-4 line-clamp-3 leading-relaxed">
+                        {lang === 'ar' ? creator.categoryAr : creator.categoryEn}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {creator.tags.slice(0, 3).map((tag, i) => (
+                          <span key={i} className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#faf8f5] text-[#334155] border border-[#e8e0d5]">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Action Link */}
+                    <div className="pt-3 border-t border-[#f0ebe3]">
+                      <a
+                        href={creator.primaryLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-[#1a202c] bg-[#f5f0e8] hover:bg-[#326084] hover:text-white transition-all active:scale-95"
+                      >
+                        <span>{t.card.viewProfile}</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ============================================================== */}
+        {/* 3. UGC CREATORS — LINKS-FIRST DIRECTORY                          */}
+        {/* ============================================================== */}
+        {(activeTab === 'all' || activeTab === 'ugc') && (
+          <div>
+            {/* Section Header */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 mb-8 sm:mb-10 pb-4 border-b border-[#e8e0d5]">
+              <div>
+                <span className="text-xs font-black text-[#c49348] tracking-widest uppercase block mb-1">
+                  03 • ORGANIC & DINING CONTENT POOL
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-black text-[#1a202c]">
+                  {t.sections.ugcTitle}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#475569] mt-1 max-w-2xl">
+                  {t.sections.ugcSubtitle}
+                </p>
+              </div>
+              <span className="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-[#c49348]/10 text-[#92400e] border border-[#c49348]/20">
+                {UGC_CREATORS.length} Active Candidates
+              </span>
+            </div>
+
+            {/* UGC Search & Platform Filter Bar */}
+            <div className="mb-6 p-4 rounded-2xl bg-white border border-[#e8e0d5] shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+              {/* Search Box */}
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-[#94a3b8] absolute start-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  value={ugcSearchQuery}
+                  onChange={(e) => setUgcSearchQuery(e.target.value)}
+                  placeholder={t.filters.searchPlaceholder}
+                  className="w-full min-h-[44px] ps-9 pe-3 py-2 rounded-xl text-xs bg-[#faf8f5] border border-[#e8e0d5] text-[#1a202c] placeholder:text-[#94a3b8] focus:outline-none focus:border-[#c49348] focus:bg-white transition-colors"
+                />
+              </div>
+
+              {/* Platform Filter */}
+              <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                {(['all', 'instagram', 'tiktok', 'facebook'] as const).map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setUgcPlatformFilter(p)}
+                    className={`min-h-[44px] px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all active:scale-95 flex-shrink-0 flex items-center gap-1.5 ${
+                      ugcPlatformFilter === p
+                        ? 'bg-[#1a202c] text-white font-bold'
+                        : 'bg-[#faf8f5] text-[#475569] hover:bg-[#e8e0d5]'
+                    }`}
+                  >
+                    {p !== 'all' && getPlatformIcon(p, "w-3 h-3")}
+                    <span>{p === 'all' ? t.filters.allPlatforms : p.charAt(0).toUpperCase() + p.slice(1)}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* UGC Links-First Compact Profile Grid */}
+            {filteredUgcCreators.length === 0 ? (
+              <div className="p-10 text-center rounded-2xl bg-white border border-[#e8e0d5]">
+                <p className="text-xs text-[#64748b]">
+                  {lang === 'ar' ? 'لا توجد نتائج مطابقة لخيارات البحث' : 'No creators matched your search query'}
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5">
+                {filteredUgcCreators.map((creator) => {
+                  const initials = getInitials(creator.nameEn);
+                  return (
+                    <div
+                      key={creator.id}
+                      className="p-4 rounded-xl bg-white border border-[#e8e0d5] hover:border-[#c49348]/40 hover:shadow-sm transition-all flex items-center justify-between gap-3 group"
+                    >
+                      <div className="flex items-center gap-3 overflow-hidden">
+                        <div className="w-10 h-10 rounded-xl bg-[#faf8f5] border border-[#e8e0d5] flex items-center justify-center text-xs font-extrabold text-[#78350f] flex-shrink-0">
+                          {initials}
+                        </div>
+                        <div className="overflow-hidden">
+                          <h5 className="text-xs font-bold text-[#1a202c] group-hover:text-[#c49348] transition-colors truncate">
+                            {lang === 'ar' ? creator.nameAr : creator.nameEn}
+                          </h5>
+                          <div className="flex items-center gap-1.5 mt-0.5">
+                            {getPlatformIcon(creator.platform, "w-3 h-3 flex-shrink-0")}
+                            <span className="text-[10px] text-[#64748b] font-mono truncate">
+                              {creator.handle}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <a
+                        href={creator.primaryLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="min-h-[36px] min-w-[36px] p-2 rounded-lg bg-[#faf8f5] hover:bg-[#c49348] hover:text-white text-[#475569] flex items-center justify-center flex-shrink-0 transition-colors"
+                        title={t.card.viewProfile}
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
 
       </div>
     </section>

@@ -22,7 +22,14 @@ export interface PortfolioItem {
 }
 
 export type CreatorTier = 'priority' | 'mega' | 'mini' | 'ugc' | 'micro_ugc';
-export type CreatorPlatform = 'instagram' | 'facebook' | 'tiktok';
+export type CreatorPlatform = 'instagram' | 'facebook' | 'tiktok' | 'youtube';
+
+export interface PlatformLinkItem {
+  platform: CreatorPlatform;
+  url: string;
+  count?: string;
+  isConfirmed?: boolean;
+}
 
 export interface CreatorCandidate {
   id: string;
@@ -36,6 +43,12 @@ export interface CreatorCandidate {
   primaryLink: string;
   followers?: string; // Clearly labeled as user-provided reference or verified
   isFollowerVerified?: boolean;
+  combinedAudience?: string;
+  combinedAudienceNoteAr?: string;
+  combinedAudienceNoteEn?: string;
+  platforms?: PlatformLinkItem[];
+  roleAr?: string;
+  roleEn?: string;
   categoryAr: string;
   categoryEn: string;
   tags: string[];

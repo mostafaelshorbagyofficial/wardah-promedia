@@ -16,7 +16,12 @@ const requiredAssets = [
   'assets/portfolio/mawlay-restaurant.jpeg',
   'assets/portfolio/costa-blanca.jpeg',
   'assets/portfolio/puka-restaurant.jpeg',
-  'assets/influencers/el-zuzzat.jpg'
+  'assets/influencers/el-zuzzat.jpg',
+  'assets/influencers/adham-singer.jpg',
+  'assets/influencers/mohamed-ahmed.jpg',
+  'assets/influencers/hany-food.jpg',
+  'assets/influencers/hesham-taha.jpg',
+  'assets/influencers/maya.jpg'
 ];
 
 let allExist = true;
