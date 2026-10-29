@@ -11,30 +11,30 @@ export const GCCStrategy: React.FC<GCCStrategyProps> = ({ lang }) => {
   const t = CONTENT[lang].gcc;
 
   const stageIcons = [
-    <Plane className="w-6 h-6 text-amber-400" />,
-    <Navigation className="w-6 h-6 text-[#1a8b9d]" />,
-    <Users className="w-6 h-6 text-[#d9384e]" />,
-    <RefreshCw className="w-6 h-6 text-emerald-400" />
+    <Plane className="w-6 h-6 text-[#c49348]" />,
+    <Navigation className="w-6 h-6 text-[#326084]" />,
+    <Users className="w-6 h-6 text-[#c5384a]" />,
+    <RefreshCw className="w-6 h-6 text-emerald-600" />
   ];
 
   return (
-    <section id="gcc-strategy" className="py-24 bg-[#181513] text-white relative border-t border-white/5">
+    <section id="gcc-strategy" className="py-24 bg-white text-[#1a202c] relative border-t border-[#e8e0d5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-300 uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c49348]/10 border border-[#c49348]/20 text-xs font-bold text-[#b45309] uppercase mb-4">
             <Plane className="w-3.5 h-3.5" />
             <span>{t.badge}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1a202c] mb-5 tracking-tight">
             {t.title}
           </h2>
 
-          <p className="text-base sm:text-lg text-gray-300 leading-relaxed font-normal mb-6">
+          <p className="text-base sm:text-lg text-[#475569] leading-relaxed font-normal mb-6">
             {t.subtitle}
           </p>
 
-          <p className="text-xs text-gray-400 italic">
+          <p className="text-xs text-[#64748b] italic">
             {t.disclaimer}
           </p>
         </div>
@@ -44,28 +44,28 @@ export const GCCStrategy: React.FC<GCCStrategyProps> = ({ lang }) => {
           {t.stages.map((stage, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#211c19] border border-amber-500/15 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-lg"
+              className="p-6 rounded-2xl bg-[#faf8f5] border border-[#e8e0d5] hover:border-[#c5384a]/40 hover:shadow-wardah-card transition-all flex flex-col justify-between group shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-white border border-[#e8e0d5] flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
                     {stageIcons[idx]}
                   </div>
-                  <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-300">
+                  <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-white text-[#c5384a] border border-[#e8e0d5]">
                     {stage.phase}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-3 group-hover:text-amber-300 transition-colors">
+                <h3 className="text-lg font-bold text-[#1a202c] mb-3 group-hover:text-[#c5384a] transition-colors">
                   {stage.name}
                 </h3>
 
-                <p className="text-sm text-gray-300 leading-relaxed font-normal">
+                <p className="text-sm text-[#475569] leading-relaxed font-normal">
                   {stage.desc}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-amber-400">
+              <div className="mt-6 pt-4 border-t border-[#e8e0d5] flex items-center gap-2 text-xs font-bold text-[#c49348]">
                 <Check className="w-3.5 h-3.5" />
                 <span>{lang === 'ar' ? 'مسار مستهدف بدقة' : 'Key Touchpoint'}</span>
               </div>

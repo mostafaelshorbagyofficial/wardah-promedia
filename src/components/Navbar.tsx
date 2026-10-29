@@ -39,8 +39,8 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-[#14181f]/95 backdrop-blur-md shadow-xl border-b border-white/10 py-2.5 sm:py-3'
-          : 'bg-gradient-to-b from-[#14181f]/95 via-[#14181f]/70 to-transparent py-3.5 sm:py-5'
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-[#e8e0d5] py-2.5 sm:py-3'
+          : 'bg-[#faf8f5]/90 backdrop-blur-sm border-b border-[#e8e0d5]/60 py-3 sm:py-4'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
           {/* Wardah Prominent Browser Branding */}
           <a
             href="#wardah-proposal"
-            className="flex items-center gap-2 group min-h-[44px] min-w-[44px]"
+            className="flex items-center gap-2.5 group min-h-[44px] min-w-[44px]"
             title="Wardah Egypt Restaurant & Cafe"
           >
             <img
@@ -57,15 +57,15 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
               alt="Wardah Restaurant & Cafe"
               width="40"
               height="40"
-              className="h-8 sm:h-9 w-auto rounded-full object-contain bg-white/10 p-0.5 border border-amber-500/40 transition-transform group-hover:scale-105"
+              className="h-8 sm:h-9 w-auto rounded-full object-contain bg-white p-0.5 border border-[#c5384a]/30 shadow-sm transition-transform group-hover:scale-105"
             />
             <div className="text-left rtl:text-right hidden sm:block">
-              <span className="block text-xs font-bold tracking-wider text-amber-200 uppercase">Wardah</span>
-              <span className="block text-[10px] text-gray-400">Egypt</span>
+              <span className="block text-xs font-black tracking-wider text-[#1a202c] uppercase">Wardah</span>
+              <span className="block text-[10px] text-[#c5384a] font-medium">Restaurant & Cafe</span>
             </div>
           </a>
 
-          <div className="h-5 w-[1px] bg-white/20"></div>
+          <div className="h-5 w-[1px] bg-[#e8e0d5]"></div>
 
           {/* ProMedia Agency Partner */}
           <a
@@ -84,15 +84,15 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden xl:flex items-center gap-4 text-xs lg:text-sm font-medium text-gray-300">
+        <nav className="hidden xl:flex items-center gap-3.5 text-xs lg:text-sm font-semibold text-[#334155]">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="hover:text-white transition-colors py-2 px-1 relative group"
+              className="hover:text-[#c5384a] transition-colors py-2 px-1 relative group"
             >
               {link.label}
-              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#e84d58] scale-x-0 group-hover:scale-x-100 transition-transform duration-150 origin-center"></span>
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#c5384a] scale-x-0 group-hover:scale-x-100 transition-transform duration-150 origin-center"></span>
             </a>
           ))}
         </nav>
@@ -103,7 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
           <a
             href="#promedia-video"
             title={lang === 'ar' ? 'انتقل إلى فيديو البرومو' : 'Jump to Showreel'}
-            className="min-h-[40px] px-3 py-2 rounded-full text-xs font-semibold bg-[#e84d58]/15 hover:bg-[#e84d58]/25 text-[#e84d58] border border-[#e84d58]/30 transition-all flex items-center gap-1.5 active:scale-95"
+            className="min-h-[40px] px-3 py-2 rounded-full text-xs font-bold bg-[#c5384a]/10 hover:bg-[#c5384a]/15 text-[#c5384a] border border-[#c5384a]/25 transition-all flex items-center gap-1.5 active:scale-95"
           >
             <Play className="w-3.5 h-3.5 fill-current" />
             <span className="hidden md:inline">{lang === 'ar' ? 'البرومو' : 'Showreel'}</span>
@@ -112,17 +112,17 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
           {/* Language Switcher */}
           <button
             onClick={onToggleLang}
-            className="min-h-[40px] min-w-[40px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold bg-white/10 hover:bg-white/15 text-white border border-white/15 transition-all active:scale-95"
+            className="min-h-[40px] min-w-[40px] flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold bg-white hover:bg-[#f5f0e8] text-[#1a202c] border border-[#e8e0d5] shadow-sm transition-all active:scale-95"
             aria-label="Toggle language"
           >
-            <Globe className="w-3.5 h-3.5 text-amber-400" />
+            <Globe className="w-3.5 h-3.5 text-[#c49348]" />
             <span>{lang === 'ar' ? 'EN' : 'عربي'}</span>
           </button>
 
           {/* Contact CTA */}
           <a
             href="#contact-closing"
-            className="hidden sm:inline-flex min-h-[40px] items-center justify-center px-4 py-2 rounded-full text-xs font-semibold bg-[#e84d58] hover:bg-[#de4b55] text-white shadow-md shadow-[#e84d58]/20 transition-all active:scale-95"
+            className="hidden sm:inline-flex min-h-[40px] items-center justify-center px-4 py-2 rounded-full text-xs font-bold bg-[#c5384a] hover:bg-[#b02a3a] text-white shadow-md shadow-[#c5384a]/20 transition-all active:scale-95"
           >
             <span>{CONTENT[lang].nav.contact}</span>
           </a>
@@ -130,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
           {/* Mobile Menu Hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 xl:hidden focus:outline-none active:scale-95"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-white hover:bg-[#f5f0e8] text-[#1a202c] border border-[#e8e0d5] xl:hidden focus:outline-none active:scale-95"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -140,25 +140,25 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-[#161a22]/98 backdrop-blur-xl border-b border-white/10 px-4 pt-3 pb-6 mt-2 space-y-3 shadow-2xl animate-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto">
+        <div className="xl:hidden bg-white/98 backdrop-blur-xl border-b border-[#e8e0d5] px-4 pt-3 pb-6 mt-2 space-y-3 shadow-xl animate-in slide-in-from-top-2 duration-150 max-h-[80vh] overflow-y-auto">
           <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="min-h-[44px] flex items-center px-3 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-200 font-medium active:bg-[#e84d58]/20"
+                className="min-h-[44px] flex items-center px-3 py-2.5 rounded-xl bg-[#faf8f5] hover:bg-[#f5f0e8] text-[#1a202c] font-semibold active:bg-[#c5384a]/10"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+          <div className="pt-3 border-t border-[#e8e0d5] flex items-center justify-between">
             <a
               href="#promedia-video"
               onClick={() => setMobileMenuOpen(false)}
-              className="min-h-[44px] inline-flex items-center gap-2 text-xs font-bold text-[#e84d58] bg-[#e84d58]/10 px-3.5 py-2.5 rounded-xl"
+              className="min-h-[44px] inline-flex items-center gap-2 text-xs font-bold text-[#c5384a] bg-[#c5384a]/10 px-3.5 py-2.5 rounded-xl"
             >
               <Play className="w-4 h-4 fill-current" />
               <span>{lang === 'ar' ? 'فيديو البرومو المباشر' : 'Direct Agency Showreel'}</span>
@@ -168,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({ lang, onToggleLang }) => {
               href="http://www.pro-media.com"
               target="_blank"
               rel="noreferrer"
-              className="min-h-[44px] inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white px-2 py-2"
+              className="min-h-[44px] inline-flex items-center gap-1.5 text-xs text-[#64748b] hover:text-[#1a202c] px-2 py-2 font-medium"
             >
               <span>pro-media.com</span>
               <ExternalLink className="w-3.5 h-3.5" />

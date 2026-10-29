@@ -69,7 +69,7 @@ export const WhyProMedia: React.FC<WhyProMediaProps> = ({ lang }) => {
             <img
               src="/assets/logo/wardah-logo.png"
               alt="Wardah Logo"
-              className="h-12 w-auto rounded-full object-contain bg-white/10 p-1 border border-amber-500/30"
+              className="h-12 w-auto rounded-full object-contain bg-white p-1 border border-[#c5384a]/40 shadow-md"
             />
           </div>
 

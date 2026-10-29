@@ -21,7 +21,7 @@ export interface PortfolioItem {
   isVerified?: boolean;
 }
 
-export type CreatorTier = 'priority' | 'mega' | 'micro_ugc';
+export type CreatorTier = 'priority' | 'mega' | 'mini' | 'ugc' | 'micro_ugc';
 export type CreatorPlatform = 'instagram' | 'facebook' | 'tiktok';
 
 export interface CreatorCandidate {
@@ -34,7 +34,8 @@ export interface CreatorCandidate {
   secondaryLink?: string;
   secondaryPlatform?: CreatorPlatform;
   primaryLink: string;
-  followers?: string; // Clearly labeled as user-provided reference
+  followers?: string; // Clearly labeled as user-provided reference or verified
+  isFollowerVerified?: boolean;
   categoryAr: string;
   categoryEn: string;
   tags: string[];

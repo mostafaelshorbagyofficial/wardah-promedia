@@ -11,34 +11,34 @@ export const MeasurementKPIs: React.FC<MeasurementKPIsProps> = ({ lang }) => {
   const t = CONTENT[lang].kpis;
 
   const kpiIcons = [
-    <TrendingUp className="w-5 h-5 text-amber-400" />,
-    <Bookmark className="w-5 h-5 text-[#d9384e]" />,
-    <Compass className="w-5 h-5 text-[#1a8b9d]" />,
-    <PhoneCall className="w-5 h-5 text-purple-400" />,
-    <BarChart3 className="w-5 h-5 text-emerald-400" />,
-    <Repeat2 className="w-5 h-5 text-blue-400" />
+    <TrendingUp className="w-5 h-5 text-[#c49348]" />,
+    <Bookmark className="w-5 h-5 text-[#c5384a]" />,
+    <Compass className="w-5 h-5 text-[#326084]" />,
+    <PhoneCall className="w-5 h-5 text-[#8e799f]" />,
+    <BarChart3 className="w-5 h-5 text-emerald-600" />,
+    <Repeat2 className="w-5 h-5 text-blue-600" />
   ];
 
   return (
-    <section id="measurement-kpis" className="py-24 bg-[#141211] text-white relative border-t border-amber-500/10">
+    <section id="measurement-kpis" className="py-24 bg-white text-[#1a202c] relative border-t border-[#e8e0d5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-semibold text-amber-300 uppercase mb-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#326084]/10 border border-[#326084]/20 text-xs font-bold text-[#326084] uppercase mb-4">
             <BarChart3 className="w-3.5 h-3.5" />
             <span>{t.badge}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-5 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1a202c] mb-5 tracking-tight">
             {t.title}
           </h2>
 
-          <p className="text-base sm:text-lg text-gray-300 leading-relaxed font-normal mb-6">
+          <p className="text-base sm:text-lg text-[#475569] leading-relaxed font-normal mb-6">
             {t.subtitle}
           </p>
 
           {/* Prominent Transparent Notice */}
-          <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs sm:text-sm text-amber-200 text-left rtl:text-right flex items-start gap-3 max-w-2xl mx-auto">
-            <AlertCircle className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+          <div className="p-4 rounded-xl bg-[#fefce8] border border-[#fef08a] text-xs sm:text-sm text-[#713f12] text-left rtl:text-right flex items-start gap-3 max-w-2xl mx-auto shadow-sm">
+            <AlertCircle className="w-5 h-5 text-[#ca8a04] flex-shrink-0 mt-0.5" />
             <p className="leading-relaxed font-medium">{t.disclaimer}</p>
           </div>
         </div>
@@ -48,24 +48,24 @@ export const MeasurementKPIs: React.FC<MeasurementKPIsProps> = ({ lang }) => {
           {t.indicators.map((indicator, idx) => (
             <div
               key={idx}
-              className="p-6 rounded-2xl bg-[#1d1916] border border-white/10 hover:border-amber-500/30 transition-all flex flex-col justify-between"
+              className="p-6 rounded-2xl bg-[#faf8f5] border border-[#e8e0d5] hover:border-[#c5384a]/40 hover:shadow-wardah-card transition-all flex flex-col justify-between"
             >
               <div>
-                <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-5">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#e8e0d5] flex items-center justify-center mb-5 shadow-xs">
                   {kpiIcons[idx]}
                 </div>
 
-                <h3 className="text-lg font-bold text-white mb-2">
+                <h3 className="text-lg font-bold text-[#1a202c] mb-2">
                   {indicator.title}
                 </h3>
 
-                <p className="text-sm text-gray-400 leading-relaxed">
+                <p className="text-sm text-[#475569] leading-relaxed">
                   {indicator.desc}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-amber-400/90 font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+              <div className="mt-6 pt-4 border-t border-[#e8e0d5] flex items-center gap-2 text-xs text-[#c5384a] font-bold">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#c5384a]" />
                 <span>{lang === 'ar' ? 'مؤشر أداء مرتبط بالعائد الفعلي' : 'Commercial Intent Metric'}</span>
               </div>
             </div>

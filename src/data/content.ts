@@ -178,30 +178,34 @@ export const CONTENT = {
       ]
     },
     influencers: {
-      badge: 'قاعدة بيانات صناع المحتوى المقترحين',
-      title: 'دليل المؤثرين المقترح لحملة Wardah',
-      subtitle: 'قائمة أولية تضم 42 مرشحاً تم فرزهم وتبويبهم بعناية، مع إبراز المرشحين ذوي الأولوية والقدرة العالية على التأثير.',
-      disclaimer: 'تنويه شفاف: أعداد المتابعين المسجلة هي بيانات مرجعية استرشادية واردة في ملف المشروع وليست إحصاءات مدققة لحظياً، والقائمة تمثل مرشحين مبدئيين يخضعون للتعاقد النهائي.',
-      priorityBadge: 'الأولوية القصوى — ترشيح خاص',
+      badge: 'قاعدة بيانات صناع المحتوى واستراتيجية المؤثرين',
+      title: 'دليل المؤثرين المقترح لمطعم وكافيه Wardah',
+      subtitle: 'تبويب وتصنيف دقيق لـ 50 صانع محتوى في 3 فئات استراتيجية: المؤثرون الكبار (Mega)، المؤثرون المتخصصون (Mini)، وصناع تجارب الزوار (UGC)، يتصدرهم El Zuzzat كمرشح أولوية أولى.',
+      disclaimer: 'تنويه شفاف: أرقام المتابعين المعروضة تمثل بيانات مرجعية استرشادية واردة في ملف المشروع وقد تتغير بمرور الوقت. البطاقات غير المؤكدة موسومة بوضوح بـ "غير مدقق" لضمان الشفافية والمصداقية المهنية.',
+      priorityBadge: 'الأولوية القصوى — ترشيح استراتيجي خاص',
       priorityTitle: 'الزوذات — El Zuzzat',
       prioritySubtitle: 'مرشح ذو أولوية للحملة الافتتاحية نظراً لأسلوبهما التفاعلي الاستثنائي في توثيق تجارب المطاعم والوجبات العائلية.',
       tabs: {
         all: 'جميع المرشحين',
-        priority: 'الأولوية (El Zuzzat)',
-        mega: 'المؤثرون الكبار (Mega Reach)',
-        micro: 'صناع المحتوى وتجارب الزوار (Micro / UGC)'
+        mega: 'MEGA Influencers',
+        mini: 'MINI Influencers',
+        ugc: 'UGC Creators'
       },
       filters: {
         platform: 'المنصة',
         allPlatforms: 'جميع المنصات',
         instagram: 'Instagram',
         facebook: 'Facebook',
-        tiktok: 'TikTok'
+        tiktok: 'TikTok',
+        searchPlaceholder: 'بحث باسم صانع المحتوى أو الحساب...'
       },
       card: {
-        userProvidedFollowers: 'متابع (بيان استرشادي)',
+        userProvidedFollowers: 'المتابعون',
+        verifiedLabel: 'مرجع مدقق',
+        unverifiedLabel: 'غير مدقق (قيد المراجعة)',
         viewProfile: 'فتح الحساب المعتمد',
-        profileVerified: 'حساب موثق'
+        profileVerified: 'حساب موثق',
+        followerNote: 'أرقام المتابعين كمرجع أولي وقابلة للتحديث'
       }
     },
     campaigns: {
@@ -551,30 +555,34 @@ export const CONTENT = {
       ]
     },
     influencers: {
-      badge: 'Proposed Creator Candidate Directory',
-      title: 'Curated Influencer Directory for Wardah',
-      subtitle: 'A working shortlist of 42 candidates systematically reviewed and categorized, featuring priority recommendations and tiered reach pools.',
-      disclaimer: 'Transparent Disclaimer: Follower counts listed are user-provided project reference figures, not independently verified real-time statistics. The directory represents provisional candidates subject to finalized campaign booking.',
-      priorityBadge: 'Top Priority Placement — Featured Candidate',
+      badge: 'Proposed Creator Candidate Directory & Growth Strategy',
+      title: 'Curated Influencer Directory for Wardah Egypt',
+      subtitle: 'Systematically categorized directory of 50 creators structured across 3 strategic tiers: MEGA Influencers for high reach, MINI Influencers for targeted local discovery, and UGC Creators for authentic dining moments, spearheaded by El Zuzzat as priority candidate.',
+      disclaimer: 'Transparent Professional Disclaimer: Follower counts displayed are project reference benchmarks and may vary over time. Profiles without verified metrics are explicitly marked as "Not verified" to preserve integrity and objectivity.',
+      priorityBadge: 'Top Priority Placement — Featured Strategic Recommendation',
       priorityTitle: 'El Zuzzat — Priority Placement',
-      prioritySubtitle: 'Designated priority candidate for the campaign launch wave due to outstanding audience engagement and authentic food storytelling.',
+      prioritySubtitle: 'Designated top priority candidate for the campaign launch wave due to outstanding audience engagement and authentic food storytelling.',
       tabs: {
         all: 'All Candidates',
-        priority: 'Priority (El Zuzzat)',
-        mega: 'Mega / Larger Reach Pool',
-        micro: 'Micro / UGC Candidates'
+        mega: 'MEGA Influencers',
+        mini: 'MINI Influencers',
+        ugc: 'UGC Creators'
       },
       filters: {
         platform: 'Platform',
         allPlatforms: 'All Platforms',
         instagram: 'Instagram',
         facebook: 'Facebook',
-        tiktok: 'TikTok'
+        tiktok: 'TikTok',
+        searchPlaceholder: 'Search by creator name or handle...'
       },
       card: {
-        userProvidedFollowers: 'Followers (User-Provided Ref)',
+        userProvidedFollowers: 'Followers',
+        verifiedLabel: 'Verified Reference',
+        unverifiedLabel: 'Not verified (Pending Audit)',
         viewProfile: 'Open Verified Profile',
-        profileVerified: 'Verified Account'
+        profileVerified: 'Verified Account',
+        followerNote: 'Follower counts may change over time'
       }
     },
     campaigns: {

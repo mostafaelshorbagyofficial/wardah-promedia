@@ -72,9 +72,9 @@ export const HeroProMediaProps: React.FC<HeroProMediaProps> = ({ lang }) => {
 
             <a
               href="#wardah-proposal"
-              className="min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-semibold text-xs sm:text-sm text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition-all duration-200 active:scale-95"
+              className="min-h-[44px] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-bold text-xs sm:text-sm text-[#f8a5b0] bg-[#c5384a]/20 hover:bg-[#c5384a]/30 border border-[#c5384a]/40 transition-all duration-200 active:scale-95"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 text-[#f8a5b0]" />
               <span>{t.jumpToWardah}</span>
             </a>
           </div>

@@ -42,7 +42,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className={`min-h-screen bg-[#14181f] text-[#f5f7fa] font-sans ${lang === 'ar' ? 'font-arabic' : ''}`}>
+    <div className={`min-h-screen bg-[#faf8f5] text-[#1a202c] font-sans selection:bg-[#c5384a]/20 selection:text-[#c5384a] ${lang === 'ar' ? 'font-arabic' : ''}`}>
       {/* Primary Navigation */}
       <Navbar
         lang={lang}
