@@ -93,6 +93,86 @@ export const FB_CLIENTS: ClientBrand[] = [
       'High-impact social engagement strengthening reputation',
       'Community management and direct customer touchpoints'
     ]
+  },
+  {
+    id: 'costa-blanca',
+    nameAr: 'كوستا بلانكا — Costa Bianca',
+    nameEn: 'Costa Bianca Mediterranean Dining',
+    categoryAr: 'مطاعم متوسطية وسهرات راقية بالشيخ زايد',
+    categoryEn: 'Mediterranean Dining & Lounge',
+    logo: '/assets/clients/costa-blanca-logo.jpg',
+    destinationUrl: 'https://www.instagram.com/costablanca.eg/',
+    platform: 'instagram',
+    highlightsAr: [
+      'سهرات عشاء متوسطية وأجواء راقية بالشيخ زايد',
+      'إبراز فنون الطهي والتقديم الفندقي المتميز',
+      'استقطاب العائلات ونخبة رواد المطاعم'
+    ],
+    highlightsEn: [
+      'Atmospheric Mediterranean evening dining in Zayed',
+      'Spotlight on chef craft and fine presentation',
+      'Attracting discerning diners and social gatherings'
+    ]
+  },
+  {
+    id: 'puka',
+    nameAr: 'بوكا — PUKA',
+    nameEn: 'PUKA Coastal Lounge & Dining',
+    categoryAr: 'مطاعم ساحلية وإطلالة بحرية بجليم باي',
+    categoryEn: 'Coastal Dining & Mediterranean Lounge',
+    logo: '/assets/clients/puka-logo.jpg',
+    destinationUrl: 'https://www.instagram.com/puka_restaurant/',
+    platform: 'instagram',
+    highlightsAr: [
+      'موقع ساحلي بانورامي على البحر بجليم باي',
+      'تسويق قهوة الصباح وسهرات الغروب الهادئة',
+      'محتوى تفاعلي عزز حضور المكان كوجهة أولى'
+    ],
+    highlightsEn: [
+      'Panoramic coastal setting at Gleem Bay Alexandria',
+      'Morning coffee & sunset social destination marketing',
+      'Engaging visual content driving footfall and visits'
+    ]
+  },
+  {
+    id: 'folk',
+    nameAr: 'مطعم فولك — Folk',
+    nameEn: 'Folk Restaurant & Hospitality',
+    categoryAr: 'مطاعم ومأكولات عالمية راقية',
+    categoryEn: 'Artisan Dining & International Cuisine',
+    logo: '/assets/clients/folk-logo.jpg',
+    destinationUrl: 'https://www.instagram.com/folk.restaurant/',
+    platform: 'instagram',
+    highlightsAr: [
+      'تصميم هوية بصرية ومحتوى يعكس الدفء والابتكار',
+      'تسويق أطباق مبتكرة وتجارب تذوق عصرية',
+      'تفاعل رقمي متنامٍ مع مجتمع عشاق الطعام'
+    ],
+    highlightsEn: [
+      'Visual identity and storytelling conveying warmth',
+      'Showcasing signature artisan culinary creations',
+      'High social engagement with gastronomy enthusiasts'
+    ]
+  },
+  {
+    id: 'oliver',
+    nameAr: 'أوليفر كافيه — Oliver Cafe & More',
+    nameEn: 'Oliver Cafe & More',
+    categoryAr: 'كافيهات ومشروبات مختصة وحلويات',
+    categoryEn: 'Specialty Coffee & Artisan Cafe',
+    logo: '/assets/clients/oliver-logo.jpg',
+    destinationUrl: 'https://www.instagram.com/olivercafe.eg/',
+    platform: 'instagram',
+    highlightsAr: [
+      'تسويق القهوة المختصة والمخبوزات الطازجة',
+      'جلسات مريحة وتجارب صباحية ومسائية مميزة',
+      'بناء مجتمع وفيّ للبراند وحملات ترويجية مستمرة'
+    ],
+    highlightsEn: [
+      'Specialty coffee and freshly baked pastry promotions',
+      'Cozy social atmosphere for morning and evening visits',
+      'Growing loyal community and active promotional campaigns'
+    ]
   }
 ];
 
